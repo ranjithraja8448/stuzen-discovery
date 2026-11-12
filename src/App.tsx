@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { AppMode } from './components/layout/Navbar';
 import { SidebarNav } from './components/layout/SidebarNav';
 import { Footer } from './components/layout/Footer';
@@ -409,74 +410,85 @@ export const App: React.FC = () => {
         {/* Right Scrollable Content Viewport */}
         <div className="flex-1 min-w-0 flex flex-col h-auto lg:h-screen lg:overflow-y-auto overflow-x-hidden scroll-smooth">
           <div className="flex-1 app-viewport">
-          {currentMode === 'landing' && (
-            <AgencyLandingView
-              onStartDiscovery={handleStartDiscoveryWithSection}
-              onOpenStaffVault={handleOpenStaffVault}
-              vaultCount={vaultRecords.length}
-              onApplyQuickEstimate={handleApplyQuickEstimate}
-            />
-          )}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentMode}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full"
+              >
+                {currentMode === 'landing' && (
+                  <AgencyLandingView
+                    onStartDiscovery={handleStartDiscoveryWithSection}
+                    onOpenStaffVault={handleOpenStaffVault}
+                    vaultCount={vaultRecords.length}
+                    onApplyQuickEstimate={handleApplyQuickEstimate}
+                  />
+                )}
 
-          {currentMode === 'about' && (
-            <AboutView
-              onNavigateMode={setCurrentMode}
-              onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
-            />
-          )}
+                {currentMode === 'about' && (
+                  <AboutView
+                    onNavigateMode={setCurrentMode}
+                    onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
+                  />
+                )}
 
-          {currentMode === 'services' && (
-            <ServicesView
-              onNavigateMode={setCurrentMode}
-              onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
-            />
-          )}
+                {currentMode === 'services' && (
+                  <ServicesView
+                    onNavigateMode={setCurrentMode}
+                    onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
+                  />
+                )}
 
-          {currentMode === 'portfolio' && (
-            <PortfolioView
-              onNavigateMode={setCurrentMode}
-              onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
-            />
-          )}
+                {currentMode === 'portfolio' && (
+                  <PortfolioView
+                    onNavigateMode={setCurrentMode}
+                    onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
+                  />
+                )}
 
-          {currentMode === 'contact' && (
-            <ContactView
-              onNavigateMode={setCurrentMode}
-              onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
-            />
-          )}
+                {currentMode === 'contact' && (
+                  <ContactView
+                    onNavigateMode={setCurrentMode}
+                    onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
+                  />
+                )}
 
-          {currentMode === 'discovery' && (
-            <DiscoveryEngine
-              formData={formData}
-              onChangeMeeting={handleMeetingChange}
-              onUpdateSection={handleSectionUpdate}
-              onAutoFillDemo={handleAutoFillDemo}
-              onResetForm={handleResetForm}
-              onAutoGenerateSummary={handleAutoGenerateSummary}
-              onSaveToVault={handleSaveToVault}
-              onOpenPrint={() => setPrintModalRecord(formData)}
-              isSaved={isSaved}
-              scopeAnalysis={scopeAnalysis}
-              initialSection={targetDiscoverySection}
-              onNotifyToast={setToastMessage}
-            />
-          )}
+                {currentMode === 'discovery' && (
+                  <DiscoveryEngine
+                    formData={formData}
+                    onChangeMeeting={handleMeetingChange}
+                    onUpdateSection={handleSectionUpdate}
+                    onAutoFillDemo={handleAutoFillDemo}
+                    onResetForm={handleResetForm}
+                    onAutoGenerateSummary={handleAutoGenerateSummary}
+                    onSaveToVault={handleSaveToVault}
+                    onOpenPrint={() => setPrintModalRecord(formData)}
+                    isSaved={isSaved}
+                    scopeAnalysis={scopeAnalysis}
+                    initialSection={targetDiscoverySection}
+                    onNotifyToast={setToastMessage}
+                  />
+                )}
 
-          {currentMode === 'vault' && (
-            <InternalVaultView
-              vaultRecords={vaultRecords}
-              onLoadRecord={handleLoadRecord}
-              onDeleteRecord={handleDeleteRecord}
-              onOpenPrintPreviewForRecord={record => setPrintModalRecord(record)}
-              onStartNewDiscovery={() => {
-                handleResetForm();
-                setCurrentMode('discovery');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              onLockVault={handleLockVault}
-            />
-          )}
+                {currentMode === 'vault' && (
+                  <InternalVaultView
+                    vaultRecords={vaultRecords}
+                    onLoadRecord={handleLoadRecord}
+                    onDeleteRecord={handleDeleteRecord}
+                    onOpenPrintPreviewForRecord={record => setPrintModalRecord(record)}
+                    onStartNewDiscovery={() => {
+                      handleResetForm();
+                      setCurrentMode('discovery');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    onLockVault={handleLockVault}
+                  />
+                )}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Universal Footer */}

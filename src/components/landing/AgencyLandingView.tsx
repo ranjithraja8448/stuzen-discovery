@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import confetti from 'canvas-confetti';
 import { useTheme } from '../layout/ThemeContext';
 import { 
   Globe2, 
@@ -56,8 +57,9 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
 
   return (
     <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden bg-slate-50 text-slate-900 dark:bg-[#09090b] dark:text-slate-100 transition-colors duration-200">
-      {/* Architectural Background Grid & Ambient Glows */}
+      {/* Architectural Background Grid, Cyber Scanner Beam & Ambient Glows */}
       <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
+      <div className="grid-scanner" />
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[900px] rounded-full bg-gradient-to-tr from-blue-600/15 via-cyan-500/10 to-transparent blur-[120px] pointer-events-none" />
       <div className="absolute top-[40%] -right-40 h-[400px] w-[500px] rounded-full bg-blue-700/10 blur-[100px] pointer-events-none" />
 
@@ -86,7 +88,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             transition={{ duration: 0.5 }}
             className="flex justify-center mb-6"
           >
-            <div className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-3xl bg-white/90 dark:bg-[#0c0e14]/90 backdrop-blur-xl border border-slate-200 dark:border-cyan-500/30 shadow-2xl shadow-blue-500/15 inline-flex items-center justify-center transition-all duration-300">
+            <div className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-3xl bg-white/90 dark:bg-[#0c0e14]/90 backdrop-blur-xl border border-slate-200 dark:border-cyan-500/30 shadow-2xl animate-aura-glow inline-flex items-center justify-center transition-all duration-300">
               <img
                 src={theme === 'dark' ? '/brand/STUZEN_Logo_White.png' : '/brand/STUZEN_Logo_Black.png'}
                 alt="STUZEN TECHNOLOGIES"
@@ -102,7 +104,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-950 dark:text-white leading-[1.08]"
           >
             Architecting{' '}
-            <span className="bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 via-cyan-300 via-indigo-400 to-blue-500 animate-text-flow bg-clip-text text-transparent">
               Digital Dominance.
             </span>
           </motion.h1>
@@ -212,7 +214,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             transition={{ delay: 0.45, duration: 0.6 }}
             className="mt-14 relative mx-auto max-w-5xl"
           >
-            <div className="relative rounded-2xl border border-slate-300/80 dark:border-white/15 bg-white dark:bg-[#0c0e14] shadow-2xl overflow-hidden backdrop-blur-xl">
+            <div className="relative rounded-2xl border border-slate-300/80 dark:border-white/15 bg-white dark:bg-[#0c0e14] shadow-2xl overflow-hidden backdrop-blur-xl animate-float">
               {/* Window Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-white/5 text-xs font-mono">
                 <div className="flex items-center gap-2">
@@ -377,8 +379,37 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
           </motion.div>
         </div>
 
+        {/* Live Infinite Cyber Telemetry Marquee Banner */}
+        <div className="mt-16 -mx-4 sm:-mx-6 lg:-mx-8 overflow-hidden py-3 border-y border-slate-200/80 dark:border-white/10 bg-slate-100/60 dark:bg-white/[0.02] backdrop-blur-md">
+          <div className="animate-marquee whitespace-nowrap flex items-center gap-8 font-mono text-[11px] font-bold tracking-wider text-slate-600 dark:text-slate-400 select-none">
+            {[
+              '⚡ SUB-0.38S CORE WEB VITALS',
+              '💎 100% PURE INR PRICING',
+              '🛡️ ZERO SCOPE CREEP GUARANTEE',
+              '🤖 WHATSAPP CLOUD API AUTOMATION',
+              '🚀 REACT 19 & NEXT.JS APP ROUTER',
+              '🔒 SOC-2 COMPLIANT ENCRYPTION',
+              '🌐 FASTAPI & POSTGRESQL ACID',
+              '📦 45-POINT AUDIT RIGOR',
+              '⚡ SUB-0.38S CORE WEB VITALS',
+              '💎 100% PURE INR PRICING',
+              '🛡️ ZERO SCOPE CREEP GUARANTEE',
+              '🤖 WHATSAPP CLOUD API AUTOMATION',
+              '🚀 REACT 19 & NEXT.JS APP ROUTER',
+              '🔒 SOC-2 COMPLIANT ENCRYPTION',
+              '🌐 FASTAPI & POSTGRESQL ACID',
+              '📦 45-POINT AUDIT RIGOR',
+            ].map((item, idx) => (
+              <span key={idx} className="flex items-center gap-3">
+                <span className="text-blue-600 dark:text-cyan-400">{item}</span>
+                <span className="text-slate-300 dark:text-white/20">•</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
         {/* 3 Pillars Bento Showcase */}
-        <div className="mt-24">
+        <div className="mt-20">
           <div className="text-center mb-10">
             <span className="font-mono text-xs font-bold text-blue-600 dark:text-cyan-400 uppercase tracking-widest">
               CORE CAPABILITIES
@@ -394,9 +425,9 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Pillar 1: Website Development */}
             <motion.div
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.2 }}
-              className="relative rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a]/90 p-7 backdrop-blur-xl shadow-md flex flex-col justify-between group hover:border-blue-500/50"
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.25 }}
+              className="relative rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a]/90 p-7 backdrop-blur-xl shadow-md flex flex-col justify-between group hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 shimmer-card cursor-pointer"
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -476,9 +507,9 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
 
             {/* Pillar 2: Custom Software */}
             <motion.div
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.2 }}
-              className="relative rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a]/90 p-7 backdrop-blur-xl shadow-md flex flex-col justify-between group hover:border-cyan-500/50"
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.25 }}
+              className="relative rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a]/90 p-7 backdrop-blur-xl shadow-md flex flex-col justify-between group hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/10 shimmer-card cursor-pointer"
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -559,9 +590,9 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
 
             {/* Pillar 3: AI & Automation */}
             <motion.div
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.2 }}
-              className="relative rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a]/90 p-7 backdrop-blur-xl shadow-md flex flex-col justify-between group hover:border-blue-500/50"
+              whileHover={{ y: -6 }}
+              transition={{ duration: 0.25 }}
+              className="relative rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a]/90 p-7 backdrop-blur-xl shadow-md flex flex-col justify-between group hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 shimmer-card cursor-pointer"
             >
               <div>
                 <div className="flex items-center justify-between">
@@ -817,6 +848,16 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
           };
 
           const handleApplyEstimate = () => {
+            try {
+              confetti({
+                particleCount: 70,
+                spread: 60,
+                origin: { y: 0.7 },
+                colors: ['#2563eb', '#06b6d4', '#10b981', '#3b82f6', '#ffffff'],
+              });
+            } catch (e) {
+              // ignore
+            }
             const allFeatures = Array.from(new Set([...selectedArch.defaultFeatures, ...calcAddons]));
             if (onApplyQuickEstimate) {
               onApplyQuickEstimate({
@@ -830,7 +871,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
           };
 
           return (
-            <div id="quick-scope-estimator" className="mt-20 sm:mt-24 rounded-3xl border border-blue-500/30 bg-gradient-to-b from-white to-slate-50 dark:from-[#0d0f15] dark:to-[#07090d] p-4 sm:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+            <div id="quick-scope-estimator" className="mt-20 sm:mt-24 rounded-3xl border-2 border-blue-500/40 bg-gradient-to-b from-white to-slate-50 dark:from-[#0d0f15] dark:to-[#07090d] p-4 sm:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl animate-aura-glow">
               {/* Architectural accent glow */}
               <div className="absolute top-0 right-0 h-64 w-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
