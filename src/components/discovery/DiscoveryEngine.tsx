@@ -18,6 +18,7 @@ interface DiscoveryEngineProps {
   isSaved: boolean;
   scopeAnalysis: ScopeAnalysis;
   initialSection?: string;
+  onNotifyToast?: (msg: string) => void;
 }
 
 export const DiscoveryEngine: React.FC<DiscoveryEngineProps> = ({
@@ -32,6 +33,7 @@ export const DiscoveryEngine: React.FC<DiscoveryEngineProps> = ({
   isSaved,
   scopeAnalysis,
   initialSection = 's01',
+  onNotifyToast,
 }) => {
   const [activeSection, setActiveSection] = useState<string>(initialSection);
 
@@ -52,6 +54,7 @@ export const DiscoveryEngine: React.FC<DiscoveryEngineProps> = ({
         onOpenPrint={onOpenPrint}
         onSaveToVault={onSaveToVault}
         isSaved={isSaved}
+        onNotifyToast={onNotifyToast}
       />
 
       {/* 3-Pane Split Screen Workspace */}

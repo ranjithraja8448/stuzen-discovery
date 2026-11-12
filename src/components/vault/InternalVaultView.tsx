@@ -14,10 +14,11 @@ import {
   Building2, 
   Cpu, 
   IndianRupee, 
-  Sparkles,
-  ArrowRight,
-  ShieldCheck,
-  AlertTriangle
+  Sparkles, 
+  ArrowRight, 
+  ShieldCheck, 
+  AlertTriangle,
+  FileSpreadsheet
 } from 'lucide-react';
 import { analyzeScope } from '../../utils/scopeAnalyzer';
 
@@ -61,6 +62,85 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
     URL.revokeObjectURL(url);
   };
 
+  // Export entire Lead Vault to formatted CSV Excel spreadsheet (Suggestion 2)
+  const exportVaultToCsv = () => {
+    if (!vaultRecords.length) return;
+
+    const headers = [
+      'Record ID',
+      'Interview Date',
+      'Client Business Name',
+      'Contact Person',
+      'Designation',
+      'Phone / WhatsApp',
+      'Email',
+      'Website URL',
+      'Industry',
+      'Audit Status',
+      'Website Archetype',
+      'Sitemap Pages Count',
+      'Sitemap Pages List',
+      'Selected Features Count',
+      'Est. Investment Min (INR)',
+      'Est. Investment Max (INR)',
+      'Est. Velocity Timeline',
+      'Engineering Complexity Tier',
+      'Commercial Purposes',
+      'Target Audience',
+      'Business Problem To Solve',
+      'Meeting Mode',
+      'Stuzen Solutions Rep',
+      'Client Sign-off Status',
+      'Created At'
+    ];
+
+    const escapeCsv = (val: any) => {
+      if (val === null || val === undefined) return '""';
+      const str = String(val).trim();
+      return `"${str.replace(/"/g, '""')}"`;
+    };
+
+    const rows = vaultRecords.map(rec => {
+      const scope = analyzeScope(rec);
+      return [
+        rec.id,
+        rec.meeting.interviewDate || '',
+        rec.s01_client.businessName || 'Untitled Prospect',
+        rec.s01_client.contactName || '',
+        rec.s01_client.contactDesignation || '',
+        rec.s01_client.phoneWhatsapp || '',
+        rec.s01_client.email || '',
+        rec.s01_client.websiteUrl || '',
+        rec.s01_client.industry || '',
+        rec.status,
+        rec.s03_structure.websiteType || '',
+        scope.pageCount,
+        (rec.s03_structure.requiredPages || []).join('; '),
+        scope.featureCount,
+        `₹${scope.estimatedMinINR.toLocaleString('en-IN')}`,
+        `₹${scope.estimatedMaxINR.toLocaleString('en-IN')}`,
+        scope.estimatedWeeks,
+        scope.complexityTier,
+        (rec.s02_goals.purposes || []).join('; '),
+        rec.s02_goals.targetAudience || '',
+        rec.s02_goals.businessProblemToSolve || '',
+        rec.meeting.meetingMode || '',
+        rec.meeting.stuzenRepresentative || '',
+        rec.s10_final.signOff.isAgreed ? 'Agreed & Signed' : 'Pending Sign-off',
+        rec.createdAt || ''
+      ].map(escapeCsv).join(',');
+    });
+
+    const csvContent = '\uFEFF' + [headers.map(escapeCsv).join(','), ...rows].join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `STUZEN_Lead_Vault_Spreadsheet_${new Date().toISOString().split('T')[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const handleDelete = (id: string) => {
     onDeleteRecord(id);
     setConfirmDeleteId(null);
@@ -78,21 +158,35 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
               </span>
               <span className="font-mono text-xs text-slate-500">• SECURE LOCALSTORAGE</span>
             </div>
-            <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            <h1 className="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
               Internal Discovery Lead Vault
             </h1>
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-              Browse, inspect, print, and reload past architectural discovery sessions and client dossiers.
+            <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+              Browse, inspect, export spreadsheets, print, and reload past architectural discovery sessions.
             </p>
           </div>
 
-          <button
-            onClick={onStartNewDiscovery}
-            className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-xs font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-blue-500 active:scale-95 transition-all cursor-pointer"
-          >
-            <Sparkles size={15} />
-            <span>+ New Discovery Session</span>
-          </button>
+          {/* Action Buttons: Export CSV + New Discovery */}
+          <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
+            <button
+              type="button"
+              onClick={exportVaultToCsv}
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-[#12141a] px-4 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5 active:scale-95 transition-all cursor-pointer shadow-xs"
+              title="Export all vault leads as an Excel-compatible CSV spreadsheet"
+            >
+              <FileSpreadsheet size={15} className="text-emerald-500" />
+              <span>📥 Export All to CSV</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={onStartNewDiscovery}
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2.5 text-xs font-semibold text-white shadow-md shadow-blue-500/20 hover:bg-blue-500 active:scale-95 transition-all cursor-pointer"
+            >
+              <Sparkles size={15} />
+              <span>+ New Session</span>
+            </button>
+          </div>
         </div>
 
         {/* Vault Pipeline Metrics */}
@@ -132,7 +226,7 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
         </div>
 
         {/* Filters and Search Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
           <div className="relative w-full sm:w-96">
             <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
@@ -144,12 +238,12 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
             />
           </div>
 
-          <div className="flex items-center gap-1.5 rounded-lg bg-slate-200/60 dark:bg-white/5 p-1 border border-slate-200 dark:border-white/10">
+          <div className="flex items-center gap-1 rounded-lg bg-slate-200/60 dark:bg-white/5 p-1 border border-slate-200 dark:border-white/10 overflow-x-auto scrollbar-none">
             {['All', 'Approved', 'In Review', 'Completed', 'Draft'].map(st => (
               <button
                 key={st}
                 onClick={() => setStatusFilter(st)}
-                className={`px-3 py-1 rounded-md text-xs font-medium transition-colors cursor-pointer ${
+                className={`px-3 py-1 rounded-md text-xs font-medium shrink-0 transition-colors cursor-pointer ${
                   statusFilter === st
                     ? 'bg-white text-slate-900 shadow-sm dark:bg-blue-600 dark:text-white'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
@@ -169,11 +263,11 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
             return (
               <div
                 key={record.id}
-                className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-6 shadow-sm hover:shadow-md hover:border-blue-500/40 transition-all flex flex-col justify-between"
+                className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-blue-500/40 transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-start justify-between gap-4">
-                    <div>
+                    <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <span className="font-mono text-xs font-bold text-blue-600 dark:text-cyan-400">
                           {record.id}
@@ -183,16 +277,16 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
                           {record.meeting.interviewDate}
                         </span>
                       </div>
-                      <h3 className="mt-1 text-lg font-bold text-slate-900 dark:text-white">
+                      <h3 className="mt-1 text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate">
                         {record.s01_client.businessName || 'Untitled Client'}
                       </h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">
-                        {record.s01_client.industry} • {record.s01_client.contactName} ({record.s01_client.contactDesignation})
+                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                        {record.s01_client.industry || 'General Industry'} • {record.s01_client.contactName} ({record.s01_client.contactDesignation})
                       </p>
                     </div>
 
                     <span
-                      className={`font-mono text-[11px] font-semibold px-2.5 py-1 rounded-full border ${
+                      className={`font-mono text-[11px] font-semibold px-2.5 py-1 rounded-full border shrink-0 ${
                         record.status === 'Approved'
                           ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
                           : record.status === 'In Review'
@@ -211,59 +305,68 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
 
                   {/* Metrics Row */}
                   <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
-                    <div className="p-2.5 rounded-lg bg-slate-100/60 dark:bg-white/5">
+                    <div className="p-2 sm:p-2.5 rounded-lg bg-slate-100/60 dark:bg-white/5">
                       <span className="text-[10px] text-slate-400 block">Sitemap</span>
                       <span className="font-mono font-bold text-slate-800 dark:text-slate-200">
                         {scope.pageCount} Pages
                       </span>
                     </div>
 
-                    <div className="p-2.5 rounded-lg bg-slate-100/60 dark:bg-white/5">
-                      <span className="text-[10px] text-slate-400 block">Features</span>
+                    <div className="p-2 sm:p-2.5 rounded-lg bg-slate-100/60 dark:bg-white/5">
+                      <span className="text-[10px] text-slate-400 block">Matrix</span>
                       <span className="font-mono font-bold text-slate-800 dark:text-slate-200">
-                        {scope.featureCount} Modules
+                        {scope.featureCount} Feats
                       </span>
                     </div>
 
-                    <div className="p-2.5 rounded-lg bg-slate-100/60 dark:bg-white/5">
-                      <span className="text-[10px] text-slate-400 block">Est. Scope (INR)</span>
-                      <span className="font-mono font-bold text-blue-600 dark:text-cyan-400 text-[11px] truncate block">
-                        {scope.estimatedPriceRange}
+                    <div className="p-2 sm:p-2.5 rounded-lg bg-slate-100/60 dark:bg-white/5">
+                      <span className="text-[10px] text-slate-400 block">Velocity</span>
+                      <span className="font-mono font-bold text-slate-800 dark:text-slate-200 truncate block">
+                        {scope.estimatedWeeks}
                       </span>
                     </div>
                   </div>
+
+                  {/* Investment Tier Badge */}
+                  <div className="mt-3 flex items-center justify-between p-2.5 rounded-xl bg-blue-50/40 dark:bg-blue-950/20 border border-blue-500/20">
+                    <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
+                      <IndianRupee size={12} className="text-blue-600 dark:text-cyan-400" />
+                      <span>Estimate:</span>
+                    </div>
+                    <span className="font-mono text-xs font-bold text-slate-900 dark:text-white">
+                      {scope.estimatedPriceRange}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Card Action Buttons */}
+                {/* Card Actions Bar */}
                 <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-1.5">
                     <button
                       type="button"
                       onClick={() => onOpenPrintPreviewForRecord(record)}
-                      className="inline-flex items-center gap-1 rounded-lg border border-slate-200 dark:border-white/10 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer"
-                      title="View Official Printable Dossier"
+                      className="p-2 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                      title="Print Official Dossier"
                     >
-                      <Printer size={13} className="text-blue-500" />
-                      <span>Print PDF</span>
+                      <Printer size={15} />
                     </button>
 
                     <button
                       type="button"
                       onClick={() => exportRecordJson(record)}
-                      className="inline-flex items-center gap-1 rounded-lg border border-slate-200 dark:border-white/10 px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer"
-                      title="Export JSON backup"
+                      className="p-2 rounded-lg text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
+                      title="Download JSON"
                     >
-                      <Download size={13} />
-                      <span>JSON</span>
+                      <Download size={15} />
                     </button>
 
                     {confirmDeleteId === record.id ? (
-                      <div className="flex items-center gap-1 bg-red-50 dark:bg-red-950/40 p-1 rounded-md border border-red-300/40">
-                        <span className="text-[10px] text-red-600 dark:text-red-400 font-semibold">Delete?</span>
+                      <div className="flex items-center gap-1 bg-red-50 dark:bg-red-950/40 px-2 py-1 rounded-lg border border-red-500/20">
+                        <span className="text-[10px] text-red-600 dark:text-red-400 font-medium">Delete?</span>
                         <button
                           type="button"
                           onClick={() => handleDelete(record.id)}
-                          className="px-1.5 py-0.5 rounded bg-red-600 text-white text-[10px] font-bold cursor-pointer"
+                          className="px-1.5 py-0.5 bg-red-600 text-white rounded text-[10px] font-bold cursor-pointer"
                         >
                           Yes
                         </button>
@@ -279,10 +382,10 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
                       <button
                         type="button"
                         onClick={() => setConfirmDeleteId(record.id)}
-                        className="p-1.5 text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
+                        className="p-2 text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
                         title="Delete record"
                       >
-                        <Trash2 size={13} />
+                        <Trash2 size={15} />
                       </button>
                     )}
                   </div>
@@ -290,7 +393,7 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
                   <button
                     type="button"
                     onClick={() => onLoadRecord(record)}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-blue-500 active:scale-95 transition-all cursor-pointer shadow-sm"
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-blue-500 active:scale-95 transition-all cursor-pointer shadow-sm"
                   >
                     <span>Load in Portal</span>
                     <ArrowRight size={13} />

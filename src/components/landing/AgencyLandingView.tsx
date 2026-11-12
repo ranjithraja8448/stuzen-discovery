@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../layout/ThemeContext';
 import { 
@@ -15,7 +15,12 @@ import {
   Workflow, 
   MessageSquareCode, 
   FileText,
-  ChevronRight
+  ChevronRight,
+  IndianRupee,
+  Calculator,
+  Clock,
+  Check,
+  ShoppingBag
 } from 'lucide-react';
 import { AppMode } from '../layout/Navbar';
 
@@ -23,14 +28,25 @@ interface AgencyLandingViewProps {
   onStartDiscovery: (targetSection?: string) => void;
   onOpenVault: () => void;
   vaultCount: number;
+  onApplyQuickEstimate?: (config: {
+    websiteType: string;
+    pageCount: number;
+    selectedFeatures: string[];
+  }) => void;
 }
 
 export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
   onStartDiscovery,
   onOpenVault,
   vaultCount,
+  onApplyQuickEstimate,
 }) => {
   const { theme } = useTheme();
+
+  // Suggestion 4: 5-Second Scope & INR Estimator State
+  const [calcArchetype, setCalcArchetype] = useState<string>('business');
+  const [calcPages, setCalcPages] = useState<number>(10);
+  const [calcAddons, setCalcAddons] = useState<string[]>(['payment_gateway', 'whatsapp_cloud_api']);
 
   return (
     <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden bg-slate-50 text-slate-900 dark:bg-[#09090b] dark:text-slate-100 transition-colors duration-200">
@@ -505,6 +521,239 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             </motion.div>
           </div>
         </div>
+
+        {/* ======================================================== */}
+        {/* Suggestion 4: Interactive 5-Second Scope & INR Estimator  */}
+        {/* ======================================================== */}
+        {(() => {
+          const ARCHETYPES = [
+            { id: 'business', label: 'Corporate Website', basePrice: 35000, baseWeeks: 3, desc: 'Brand flagship, service details & high-converting lead forms', defaultFeatures: ['contact_form', 'click_to_call', 'whatsapp_button', 'lead_magnet'] },
+            { id: 'ecommerce', label: 'E-Commerce & D2C', basePrice: 65000, baseWeeks: 4, desc: 'Product catalog, shopping cart, checkout & payment engine', defaultFeatures: ['contact_form', 'click_to_call', 'whatsapp_button', 'search_autocomplete', 'lead_magnet'] },
+            { id: 'web_application', label: 'Custom Web App / Portal', basePrice: 95000, baseWeeks: 6, desc: 'Dynamic database, client dashboard & multi-role permissions', defaultFeatures: ['contact_form', 'customer_login', 'interactive_calculator', 'role_based_access'] },
+            { id: 'custom_saas', label: 'Enterprise SaaS MVP', basePrice: 165000, baseWeeks: 8, desc: 'Scalable multi-tenant architecture with automated cloud workflows', defaultFeatures: ['contact_form', 'customer_login', 'role_based_access', 'audit_logging', 'ai_chatbot'] },
+          ];
+
+          const PAGE_TIERS = [
+            { count: 5, label: '1–5 Pages', sub: 'Starter Showcase', addPrice: 0, addWeeks: 0 },
+            { count: 10, label: '6–12 Pages', sub: 'Standard Growth', addPrice: 15000, addWeeks: 1 },
+            { count: 18, label: '13–20 Pages', sub: 'Comprehensive Manifest', addPrice: 35000, addWeeks: 2 },
+            { count: 28, label: '20+ Pages', sub: 'Enterprise Multi-portal', addPrice: 60000, addWeeks: 3 },
+          ];
+
+          const ADDON_MODULES = [
+            { id: 'payment_gateway', label: 'Razorpay / Cashfree Gateway', price: 15000, tag: 'Payments' },
+            { id: 'whatsapp_cloud_api', label: 'WhatsApp Cloud API Bot', price: 20000, tag: 'Automation' },
+            { id: 'customer_login', label: 'Client Portal & RBAC Auth', price: 25000, tag: 'Security' },
+            { id: 'headless_cms', label: 'Dynamic Headless CMS & Blog', price: 18000, tag: 'Content' },
+            { id: 'seo_analytics', label: 'Technical SEO Sprint & GA4', price: 12000, tag: 'Growth' },
+          ];
+
+          const selectedArch = ARCHETYPES.find(a => a.id === calcArchetype) || ARCHETYPES[0];
+          const selectedPage = PAGE_TIERS.find(p => p.count === calcPages) || PAGE_TIERS[1];
+          const addonsCost = calcAddons.reduce((sum, id) => {
+            const item = ADDON_MODULES.find(m => m.id === id);
+            return sum + (item ? item.price : 0);
+          }, 0);
+
+          const minEstimate = selectedArch.basePrice + selectedPage.addPrice + addonsCost;
+          const maxEstimate = Math.round(minEstimate * 1.32);
+          const minWeeks = selectedArch.baseWeeks + selectedPage.addWeeks;
+          const maxWeeks = minWeeks + 2;
+
+          const toggleAddon = (id: string) => {
+            setCalcAddons(prev =>
+              prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+            );
+          };
+
+          const handleApplyEstimate = () => {
+            const allFeatures = Array.from(new Set([...selectedArch.defaultFeatures, ...calcAddons]));
+            if (onApplyQuickEstimate) {
+              onApplyQuickEstimate({
+                websiteType: calcArchetype,
+                pageCount: calcPages,
+                selectedFeatures: allFeatures,
+              });
+            } else {
+              onStartDiscovery('s03');
+            }
+          };
+
+          return (
+            <div className="mt-24 rounded-3xl border border-blue-500/30 bg-gradient-to-b from-white to-slate-50 dark:from-[#0d0f15] dark:to-[#07090d] p-6 sm:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+              {/* Architectural accent glow */}
+              <div className="absolute top-0 right-0 h-64 w-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-white/10">
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs font-mono font-bold text-blue-600 dark:text-cyan-400">
+                    <Calculator size={13} />
+                    <span>5-SECOND SCOPE & INR ESTIMATOR</span>
+                  </div>
+                  <h2 className="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                    Instant Architectural Budget Calculator
+                  </h2>
+                  <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                    Select your platform archetype, page scale, and integrations to calculate an immediate Pure INR investment blueprint.
+                  </p>
+                </div>
+
+                <span className="font-mono text-xs font-bold px-3 py-1 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shrink-0">
+                  PURE INR (₹) • ZERO USD
+                </span>
+              </div>
+
+              {/* Calculator Steps Container */}
+              <div className="mt-8 space-y-8">
+                {/* Step 1: Platform Archetype */}
+                <div>
+                  <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+                    Step 1 • Select Platform Archetype
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    {ARCHETYPES.map(arch => {
+                      const isSelected = calcArchetype === arch.id;
+                      return (
+                        <button
+                          key={arch.id}
+                          type="button"
+                          onClick={() => setCalcArchetype(arch.id)}
+                          className={`text-left rounded-2xl p-4 transition-all duration-200 cursor-pointer border flex flex-col justify-between ${
+                            isSelected
+                              ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/25 scale-[1.01]'
+                              : 'bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-blue-400/50 text-slate-900 dark:text-slate-100'
+                          }`}
+                        >
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className={`text-xs font-bold ${isSelected ? 'text-white' : 'text-slate-900 dark:text-white'}`}>
+                                {arch.label}
+                              </span>
+                              {isSelected && <Check size={14} strokeWidth={3} className="text-white" />}
+                            </div>
+                            <p className={`text-[11px] leading-relaxed line-clamp-2 ${isSelected ? 'text-blue-100' : 'text-slate-500 dark:text-slate-400'}`}>
+                              {arch.desc}
+                            </p>
+                          </div>
+                          <div className="mt-3 pt-2 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-[11px] font-mono">
+                            <span className={isSelected ? 'text-blue-200' : 'text-slate-400'}>From</span>
+                            <span className={`font-bold ${isSelected ? 'text-white' : 'text-blue-600 dark:text-cyan-400'}`}>
+                              ₹{arch.basePrice.toLocaleString('en-IN')}
+                            </span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Step 2: Page Scale */}
+                <div>
+                  <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+                    Step 2 • Choose Page Scale & Screen Volume
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    {PAGE_TIERS.map(pt => {
+                      const isSelected = calcPages === pt.count;
+                      return (
+                        <button
+                          key={pt.count}
+                          type="button"
+                          onClick={() => setCalcPages(pt.count)}
+                          className={`rounded-xl p-3 text-center transition-all cursor-pointer border ${
+                            isSelected
+                              ? 'bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/25'
+                              : 'bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 hover:border-blue-400/50 text-slate-800 dark:text-slate-200'
+                          }`}
+                        >
+                          <div className="font-bold text-xs">{pt.label}</div>
+                          <div className={`text-[10px] font-mono mt-0.5 ${isSelected ? 'text-blue-100' : 'text-slate-400'}`}>
+                            {pt.sub}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Step 3: Key Integration Modules */}
+                <div>
+                  <label className="block text-xs font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+                    Step 3 • Add Strategic Architectural Modules
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                    {ADDON_MODULES.map(mod => {
+                      const isChecked = calcAddons.includes(mod.id);
+                      return (
+                        <button
+                          key={mod.id}
+                          type="button"
+                          onClick={() => toggleAddon(mod.id)}
+                          className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                            isChecked
+                              ? 'bg-blue-50 dark:bg-blue-950/40 border-blue-500 text-blue-900 dark:text-cyan-200'
+                              : 'bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${
+                              isChecked
+                                ? 'bg-blue-600 border-blue-600 text-white'
+                                : 'border-slate-300 dark:border-white/20'
+                            }`}>
+                              {isChecked && <Check size={11} strokeWidth={3} />}
+                            </div>
+                            <div className="min-w-0">
+                              <span className="text-xs font-semibold block truncate">{mod.label}</span>
+                              <span className="text-[10px] font-mono text-slate-400 block">{mod.tag}</span>
+                            </div>
+                          </div>
+                          <span className="font-mono text-xs font-bold text-blue-600 dark:text-cyan-400 shrink-0 ml-2">
+                            +₹{mod.price.toLocaleString('en-IN')}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Calculation Summary Box */}
+                <div className="rounded-2xl border border-blue-500/30 bg-blue-600/5 dark:bg-blue-950/30 p-5 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                  <div className="space-y-1">
+                    <span className="font-mono text-[11px] font-bold text-blue-600 dark:text-cyan-400 uppercase tracking-widest block">
+                      DYNAMIC CALIBRATION ESTIMATE
+                    </span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white font-mono">
+                        ₹{minEstimate.toLocaleString('en-IN')} – ₹{maxEstimate.toLocaleString('en-IN')}
+                      </span>
+                      <span className="font-mono text-xs text-slate-500">(Excl. GST)</span>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-slate-600 dark:text-slate-300 pt-1">
+                      <span className="flex items-center gap-1 font-mono">
+                        <Clock size={13} className="text-blue-500" />
+                        Sprint Velocity: <strong>{minWeeks}–{maxWeeks} Weeks</strong>
+                      </span>
+                      <span className="text-slate-400 hidden sm:inline">•</span>
+                      <span className="text-slate-500">
+                        Milestones: 40% Deposit / 40% Staging / 20% DNS Launch
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleApplyEstimate}
+                    className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-4 text-xs font-bold text-white shadow-lg shadow-blue-500/30 hover:from-blue-500 hover:to-cyan-500 active:scale-95 transition-all cursor-pointer group shrink-0"
+                  >
+                    <span>Apply to 45-Point Discovery Portal</span>
+                    <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Interactive "How We Discover & Build" Workflow */}
         <div className="mt-28 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0d0f14] p-8 sm:p-12 shadow-sm">

@@ -37,19 +37,19 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => onSelectMode('landing')}
           className="flex items-center gap-3 cursor-pointer group select-none"
         >
-          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl overflow-hidden bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 group-hover:border-blue-500/50 transition-colors">
+          <div className="relative flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl overflow-hidden bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 group-hover:border-blue-500/50 transition-colors">
             <img 
               src="/brand/STUZEN_Icon_Only.png" 
               alt="Stuzen Icon" 
-              className="h-7 w-7 object-contain"
+              className="h-6 w-6 sm:h-7 sm:w-7 object-contain"
             />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold tracking-tight text-slate-900 dark:text-white text-base">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="font-bold tracking-tight text-slate-900 dark:text-white text-sm sm:text-base">
                 STUZEN
               </span>
-              <span className="font-mono text-[11px] font-semibold text-blue-600 dark:text-cyan-400 uppercase tracking-widest px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 border border-blue-500/20">
+              <span className="font-mono text-[9px] sm:text-[11px] font-semibold text-blue-600 dark:text-cyan-400 uppercase tracking-wider px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 border border-blue-500/20 hidden min-[420px]:inline">
                 TECHNOLOGIES
               </span>
             </div>
@@ -60,32 +60,33 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* 3-Mode Segmented Switcher */}
-        <nav className="flex items-center gap-1 rounded-xl bg-slate-100 p-1 dark:bg-white/5 border border-slate-200 dark:border-white/10" aria-label="Application mode switcher">
+        <nav className="flex items-center gap-0.5 sm:gap-1 rounded-xl bg-slate-100 p-1 dark:bg-white/5 border border-slate-200 dark:border-white/10" aria-label="Application mode switcher">
           <button
             onClick={() => onSelectMode('landing')}
-            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+            className={`flex items-center gap-1 sm:gap-1.5 rounded-lg px-2 sm:px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
               currentMode === 'landing'
                 ? 'bg-white text-slate-900 shadow-sm dark:bg-blue-600 dark:text-white'
                 : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
             }`}
           >
-            <Sparkles size={14} className={currentMode === 'landing' ? 'text-blue-600 dark:text-white' : ''} />
+            <Sparkles size={13} className={currentMode === 'landing' ? 'text-blue-600 dark:text-white' : ''} />
             <span className="hidden sm:inline">Agency Home</span>
             <span className="sm:hidden">Home</span>
           </button>
 
           <button
             onClick={() => onSelectMode('discovery')}
-            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+            className={`flex items-center gap-1 sm:gap-1.5 rounded-lg px-2 sm:px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
               currentMode === 'discovery'
                 ? 'bg-white text-slate-900 shadow-sm dark:bg-blue-600 dark:text-white'
                 : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
             }`}
           >
-            <Compass size={14} className={currentMode === 'discovery' ? 'text-blue-600 dark:text-white' : ''} />
-            <span>Discovery Portal</span>
+            <Compass size={13} className={currentMode === 'discovery' ? 'text-blue-600 dark:text-white' : ''} />
+            <span className="hidden sm:inline">Discovery Portal</span>
+            <span className="sm:hidden">Discovery</span>
             {discoveryCompletionPercent > 0 && (
-              <span className="ml-1 rounded-full bg-blue-100 dark:bg-blue-900/60 px-1.5 py-0.2 text-[10px] font-mono font-bold text-blue-700 dark:text-cyan-300">
+              <span className="ml-0.5 rounded-full bg-blue-100 dark:bg-blue-900/60 px-1 py-0.2 text-[9px] font-mono font-bold text-blue-700 dark:text-cyan-300">
                 {discoveryCompletionPercent}%
               </span>
             )}
@@ -93,15 +94,16 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={() => onSelectMode('vault')}
-            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+            className={`flex items-center gap-1 sm:gap-1.5 rounded-lg px-2 sm:px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
               currentMode === 'vault'
                 ? 'bg-white text-slate-900 shadow-sm dark:bg-blue-600 dark:text-white'
                 : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
             }`}
           >
-            <Database size={14} className={currentMode === 'vault' ? 'text-blue-600 dark:text-white' : ''} />
-            <span>Lead Vault</span>
-            <span className="rounded-full bg-slate-200 dark:bg-white/10 px-1.5 py-0.2 text-[10px] font-mono font-bold text-slate-700 dark:text-slate-300">
+            <Database size={13} className={currentMode === 'vault' ? 'text-blue-600 dark:text-white' : ''} />
+            <span className="hidden sm:inline">Lead Vault</span>
+            <span className="sm:hidden">Vault</span>
+            <span className="rounded-full bg-slate-200 dark:bg-white/10 px-1.5 py-0.2 text-[9px] font-mono font-bold text-slate-700 dark:text-slate-300">
               {vaultCount}
             </span>
           </button>

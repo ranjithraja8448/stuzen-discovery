@@ -184,7 +184,7 @@ export const OfficialPrintDossier: React.FC<OfficialPrintDossierProps> = ({
         {/* Official Executive Printable Document Sheet */}
         <div
           id="official-print-dossier"
-          className="w-full max-w-4xl bg-white text-slate-950 shadow-2xl rounded-2xl p-8 sm:p-12 font-sans relative border border-slate-200 shrink-0"
+          className="w-full max-w-4xl bg-white text-slate-950 shadow-2xl rounded-2xl p-4 sm:p-8 md:p-12 font-sans relative border border-slate-200 shrink-0"
         >
           {/* Official Blue Watermark Seal */}
           <div className="absolute right-12 top-28 opacity-[0.06] pointer-events-none select-none print:opacity-[0.08]">
@@ -196,7 +196,7 @@ export const OfficialPrintDossier: React.FC<OfficialPrintDossierProps> = ({
           </div>
 
           {/* 1. Official Header */}
-          <div className="flex items-center justify-between pb-5 border-b-2 border-slate-900 gap-4 avoid-break">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-5 border-b-2 border-slate-900 gap-3 sm:gap-4 avoid-break">
             <div>
               <img
                 src="/brand/STUZEN_Logo_Black.png"
@@ -208,7 +208,7 @@ export const OfficialPrintDossier: React.FC<OfficialPrintDossierProps> = ({
               </p>
             </div>
 
-            <div className="text-right font-mono text-xs space-y-1">
+            <div className="text-left sm:text-right font-mono text-xs space-y-1">
               <div className="font-bold text-sm text-slate-900 bg-slate-100 px-2.5 py-1 rounded border border-slate-300 inline-block">
                 DOC ID: {formData.id}
               </div>
@@ -553,7 +553,7 @@ export const OfficialPrintDossier: React.FC<OfficialPrintDossierProps> = ({
               Both parties acknowledge and confirm that this discovery audit document constitutes the complete and verified technical specification for the software/website engineering project undertaken by Stuzen Technologies.
             </p>
 
-            <div className="grid grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-10">
               {/* Client Signature Box */}
               <div className="border border-slate-300 rounded-lg p-3.5 bg-slate-50/40">
                 <span className="font-mono text-[9px] text-slate-400 uppercase font-bold block mb-1">
@@ -594,7 +594,7 @@ export const OfficialPrintDossier: React.FC<OfficialPrintDossierProps> = ({
             </div>
 
             {/* Document Stamp Footer */}
-            <div className="mt-6 pt-3 border-t border-slate-200 font-mono text-[9px] text-slate-500 flex items-center justify-between">
+            <div className="mt-6 pt-3 border-t border-slate-200 font-mono text-[9px] text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-1">
               <span>STUZEN TECHNOLOGIES • Learn. Build. Innovate. • Bengaluru, India</span>
               <span className="font-bold text-slate-700">OFFICIAL ARCHITECTURAL SPECIFICATION</span>
             </div>

@@ -10,6 +10,7 @@ import { DiscoveryFormData } from './types/discovery';
 import { DEMO_CLIENT_DATA, INITIAL_VAULT_RECORDS } from './data/demoClients';
 import { analyzeScope } from './utils/scopeAnalyzer';
 import { generateInternalSummaryFromAnswers } from './utils/autoGenerateSummary';
+import { decodeDiscoverySession } from './utils/shareSession';
 import { CheckCircle2, X } from 'lucide-react';
 
 const STORAGE_KEY = 'stuzen_discovery_vault';
@@ -174,6 +175,32 @@ export const App: React.FC = () => {
     }
   }, [vaultRecords]);
 
+  // Check URL parameters on mount for shared discovery sessions (?session=...)
+  useEffect(() => {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      let sessionParam = urlParams.get('session');
+
+      if (!sessionParam && window.location.hash.includes('session=')) {
+        const hashQuery = window.location.hash.substring(window.location.hash.indexOf('?') + 1);
+        const hashParams = new URLSearchParams(hashQuery);
+        sessionParam = hashParams.get('session');
+      }
+
+      if (sessionParam) {
+        const decoded = decodeDiscoverySession(sessionParam);
+        if (decoded) {
+          setFormData(decoded);
+          setCurrentMode('discovery');
+          setToastMessage(`✓ Restored Discovery Session for "${decoded.s01_client.businessName || decoded.id}" from share link!`);
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to parse share session from URL:', err);
+    }
+  }, []);
+
   // Toast auto-dismiss timer
   useEffect(() => {
     if (toastMessage) {
@@ -293,6 +320,30 @@ export const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Apply scope selections from 5-Second Estimator Calculator directly into Discovery
+  const handleApplyQuickEstimate = (config: {
+    websiteType: string;
+    pageCount: number;
+    selectedFeatures: string[];
+  }) => {
+    setFormData(prev => ({
+      ...prev,
+      s03_structure: {
+        ...prev.s03_structure,
+        websiteType: config.websiteType,
+      },
+      s05_features: {
+        ...prev.s05_features,
+        selectedFeatures: Array.from(new Set([...prev.s05_features.selectedFeatures, ...config.selectedFeatures])),
+      },
+      updatedAt: new Date().toISOString(),
+    }));
+    setCurrentMode('discovery');
+    setTargetDiscoverySection('s03');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setToastMessage('⚡ Scope Calculator estimate applied to your Discovery session!');
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] dark:bg-[#09090b] text-slate-900 dark:text-slate-100 transition-colors duration-200">
       {/* Toast Notification Container */}
@@ -331,6 +382,7 @@ export const App: React.FC = () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               vaultCount={vaultRecords.length}
+              onApplyQuickEstimate={handleApplyQuickEstimate}
             />
           )}
 
@@ -347,6 +399,7 @@ export const App: React.FC = () => {
               isSaved={isSaved}
               scopeAnalysis={scopeAnalysis}
               initialSection={targetDiscoverySection}
+              onNotifyToast={setToastMessage}
             />
           )}
 

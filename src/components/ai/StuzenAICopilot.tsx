@@ -202,22 +202,22 @@ export const StuzenAICopilot: React.FC<StuzenAICopilotProps> = ({
 
   return (
     <>
-      {/* Floating Launcher Pill (Bottom-Right) */}
-      <div className="fixed bottom-6 right-6 z-40 no-print">
+      {/* Floating Launcher Pill (Bottom-Right, comfortably elevated on mobile above bottom bar) */}
+      <div className="fixed bottom-16 sm:bottom-6 right-3 sm:right-6 z-40 no-print">
         <motion.button
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(prev => !prev)}
-          className="flex items-center gap-2.5 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 px-4 py-3 text-white shadow-2xl shadow-blue-500/40 hover:shadow-blue-500/60 border border-white/20 backdrop-blur-md cursor-pointer transition-all duration-200"
+          className="flex items-center gap-2 sm:gap-2.5 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 px-3.5 py-2.5 sm:px-4 sm:py-3 text-white shadow-2xl shadow-blue-500/40 hover:shadow-blue-500/60 border border-white/20 backdrop-blur-md cursor-pointer transition-all duration-200"
           aria-label="Open Stuzen AI Solutions Copilot"
         >
-          <div className="relative flex h-6 w-6 items-center justify-center">
+          <div className="relative flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center">
             <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
             <span className="h-2 w-2 rounded-full bg-emerald-400 absolute -top-0.5 -right-0.5" />
-            <Sparkles size={18} className="animate-spin text-cyan-200" style={{ animationDuration: '6s' }} />
+            <Sparkles size={16} className="animate-spin text-cyan-200" style={{ animationDuration: '6s' }} />
           </div>
           <span className="text-xs font-bold tracking-wide">
-            {isOpen ? 'Close AI Copilot' : 'Stuzen AI Copilot'}
+            {isOpen ? 'Close AI' : 'AI Copilot'}
           </span>
           <span className="hidden sm:inline-flex rounded-full bg-white/20 px-2 py-0.5 text-[10px] font-mono font-semibold">
             Instant Advisor
@@ -233,7 +233,7 @@ export const StuzenAICopilot: React.FC<StuzenAICopilotProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 350 }}
-            className="fixed bottom-22 right-4 sm:right-6 z-50 w-[94vw] sm:w-[430px] max-h-[82vh] h-[640px] flex flex-col rounded-2xl bg-white dark:bg-[#0c0e14] border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden no-print transition-colors"
+            className="fixed bottom-28 sm:bottom-22 right-2 sm:right-6 z-50 w-[95vw] sm:w-[430px] max-h-[80vh] h-[640px] flex flex-col rounded-2xl bg-white dark:bg-[#0c0e14] border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden no-print transition-colors"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5">
