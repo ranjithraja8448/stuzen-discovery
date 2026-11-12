@@ -103,9 +103,43 @@ export const FormCanvas: React.FC<FormCanvasProps> = ({
     }
   };
 
+  // Keyboard Navigation: Pressing Enter moves focus to the next input field
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'Enter') {
+      const target = e.target as HTMLElement;
+      // Let multiline textareas and buttons behave naturally
+      if (target.tagName === 'TEXTAREA' || target.tagName === 'BUTTON') {
+        return;
+      }
+
+      if (target.tagName === 'INPUT') {
+        e.preventDefault();
+        const container = document.getElementById('discovery-form-canvas');
+        if (container) {
+          const focusable = Array.from(
+            container.querySelectorAll<HTMLElement>(
+              'input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), select:not([disabled])'
+            )
+          );
+          const idx = focusable.indexOf(target);
+          if (idx >= 0 && idx < focusable.length - 1) {
+            const nextEl = focusable[idx + 1];
+            nextEl.focus();
+            if (nextEl instanceof HTMLInputElement) {
+              nextEl.select?.();
+            }
+          } else if (idx === focusable.length - 1) {
+            handleNext();
+          }
+        }
+      }
+    }
+  };
+
   return (
     <main
       id="discovery-form-canvas"
+      onKeyDown={handleKeyDown}
       className="flex-1 min-w-0 pt-8 sm:pt-10 px-4 sm:px-8 pb-28 max-w-4xl mx-auto overflow-y-auto scroll-smooth"
     >
       {/* Active Section Content Switcher */}

@@ -108,10 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             title="Stuzen Internal Staff Lead Vault (PIN Protected)"
           >
             <Lock size={12} className="text-amber-500" />
-            <span className="hidden md:inline">Staff Vault</span>
-            <span className="rounded-full bg-slate-100 dark:bg-white/10 px-1.5 py-0.2 text-[9px] font-mono font-bold">
-              {vaultCount}
-            </span>
+            <span className="text-[11px] font-medium">Staff Vault</span>
           </button>
 
           {/* Official Printable PDF Dossier */}

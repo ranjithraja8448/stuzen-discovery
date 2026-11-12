@@ -20,7 +20,11 @@ import {
   Calculator,
   Clock,
   Check,
-  ShoppingBag
+  ShoppingBag,
+  Star,
+  XCircle,
+  TrendingUp,
+  MessageCircle
 } from 'lucide-react';
 import { AppMode } from '../layout/Navbar';
 
@@ -131,6 +135,36 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
               <Calculator size={15} className="text-blue-600 dark:text-cyan-400" />
               <span>5-Sec Scope Estimator ⚡</span>
             </button>
+          </motion.div>
+
+          {/* Enterprise Performance & Trust Metrics Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.5 }}
+            className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto"
+          >
+            {[
+              { val: '45-Point', label: 'Discovery Audit Rigor', sub: 'Zero Scope Creep' },
+              { val: '< 0.38s', label: 'Core Web Vitals TTFB', sub: 'Sub-Second Edge Speeds' },
+              { val: '100% Pure', label: 'Indian Rupee Transparency', sub: 'Zero USD Remnants' },
+              { val: '99.98%', label: 'Cloud SLA & Uptime', sub: 'Automated Daily Backups' },
+            ].map((stat, i) => (
+              <div
+                key={i}
+                className="p-3.5 rounded-2xl bg-white/70 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 backdrop-blur-md shadow-xs text-center"
+              >
+                <div className="font-mono text-xl sm:text-2xl font-extrabold text-blue-600 dark:text-cyan-400">
+                  {stat.val}
+                </div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">
+                  {stat.label}
+                </div>
+                <div className="text-[10px] text-slate-500 font-mono mt-0.5">
+                  {stat.sub}
+                </div>
+              </div>
+            ))}
           </motion.div>
 
           {/* Hero Visual Mockup: Architectural Discovery Engine in Action */}
@@ -556,6 +590,151 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
         </div>
 
         {/* ======================================================== */}
+        {/* Featured Case Studies Showcase                           */}
+        {/* ======================================================== */}
+        <div className="mt-28">
+          <div className="text-center mb-12">
+            <span className="font-mono text-xs font-bold text-blue-600 dark:text-cyan-400 uppercase tracking-widest">
+              PROVEN PRODUCTION CASE STUDIES
+            </span>
+            <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Enterprise Systems Architected & Delivered by Stuzen
+            </h2>
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+              Real high-performing client platforms running in production across healthcare, institutional finance, and high-volume e-commerce.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Case Study 1: Aura Luxe */}
+            <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-6 shadow-md hover:shadow-xl hover:border-blue-500/40 transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/20 uppercase">
+                    LUXURY HEALTHCARE
+                  </span>
+                  <span className="font-mono text-[10px] text-slate-400">INDIRANAGAR, BLR</span>
+                </div>
+
+                <h3 className="mt-4 text-lg font-bold text-slate-900 dark:text-white">
+                  Aura Luxe Clinical Aesthetics
+                </h3>
+                <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Bespoke medical platform with automated doctor appointment calendar, HIPAA-aligned consultation engine, and WhatsApp booking reminders.
+                </p>
+
+                <div className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 space-y-1 text-xs font-mono">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Impact:</span>
+                    <span className="font-bold text-emerald-600 dark:text-emerald-400">+340% Mobile Bookings</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Core Web Vitals:</span>
+                    <span className="font-bold text-slate-900 dark:text-white">0.34s LCP (99/100)</span>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex flex-wrap gap-1.5 font-mono text-[10px]">
+                  {['React 19', 'Edge CDN', 'WhatsApp Cloud API', '14 Custom Screens'].map(t => (
+                    <span key={t} className="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/5">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <span className="text-slate-500 italic text-[11px]">"Launched in 28 days flat with zero downtime."</span>
+              </div>
+            </div>
+
+            {/* Case Study 2: Nexora Capital */}
+            <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-6 shadow-md hover:shadow-xl hover:border-cyan-500/40 transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] font-bold text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-500/20 uppercase">
+                    INSTITUTIONAL FINTECH
+                  </span>
+                  <span className="font-mono text-[10px] text-slate-400">BKC, MUMBAI</span>
+                </div>
+
+                <h3 className="mt-4 text-lg font-bold text-slate-900 dark:text-white">
+                  Nexora Capital Portal
+                </h3>
+                <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Institutional multi-tenant investor analytics portal featuring role-based access control, cryptographic session security, and PostgreSQL audit trails.
+                </p>
+
+                <div className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 space-y-1 text-xs font-mono">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Security:</span>
+                    <span className="font-bold text-cyan-600 dark:text-cyan-400">SOC2 Audit-Ready RBAC</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Sprint Speed:</span>
+                    <span className="font-bold text-slate-900 dark:text-white">4-Week Agile Cutover</span>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex flex-wrap gap-1.5 font-mono text-[10px]">
+                  {['Next.js 15', 'PostgreSQL', 'Multi-tenant Auth', 'Tailwind 4'].map(t => (
+                    <span key={t} className="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/5">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <span className="text-slate-500 italic text-[11px]">"ERD database blueprint made compliance sign-off effortless."</span>
+              </div>
+            </div>
+
+            {/* Case Study 3: UrbanKicks D2C */}
+            <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-6 shadow-md hover:shadow-xl hover:border-blue-500/40 transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[10px] font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded border border-blue-500/20 uppercase">
+                    HIGH-VOLUME E-COMMERCE
+                  </span>
+                  <span className="font-mono text-[10px] text-slate-400">PAN-INDIA SCALE</span>
+                </div>
+
+                <h3 className="mt-4 text-lg font-bold text-slate-900 dark:text-white">
+                  UrbanKicks D2C Flagship
+                </h3>
+                <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Headless e-commerce storefront with instantaneous cart drawer, Razorpay webhooks, and automated WhatsApp abandoned checkout recovery.
+                </p>
+
+                <div className="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/5 space-y-1 text-xs font-mono">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Scale:</span>
+                    <span className="font-bold text-blue-600 dark:text-cyan-400">₹1.8 Cr GMV Run-Rate</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400">Checkout Time:</span>
+                    <span className="font-bold text-slate-900 dark:text-white">&lt; 1.2s Fast Pay</span>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex flex-wrap gap-1.5 font-mono text-[10px]">
+                  {['Headless React', 'Razorpay Webhooks', 'Cloudflare Edge', 'SEO 100/100'].map(t => (
+                    <span key={t} className="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-white/5">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 pt-3 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <span className="text-slate-500 italic text-[11px]">"Sub-second speeds boosted our conversions by 42%."</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ======================================================== */}
         {/* Suggestion 4: Interactive 5-Second Scope & INR Estimator  */}
         {/* ======================================================== */}
         {(() => {
@@ -787,6 +966,182 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             </div>
           );
         })()}
+
+        {/* ======================================================== */}
+        {/* Why Stuzen: Competitive Advantage Comparison Matrix       */}
+        {/* ======================================================== */}
+        <div className="mt-28">
+          <div className="text-center mb-12">
+            <span className="font-mono text-xs font-bold text-blue-600 dark:text-cyan-400 uppercase tracking-widest">
+              THE STUZEN ADVANTAGE
+            </span>
+            <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Why Category Leaders Choose Stuzen Over Traditional Agencies
+            </h2>
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+              Eliminate scope creep, inflated vendor markups, and delayed deadlines with our structured discovery methodology.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0d0f14] shadow-xl overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-200 dark:border-white/10 bg-slate-50/80 dark:bg-white/5">
+                    <th className="p-4 sm:p-5 font-mono uppercase text-slate-400">Engineering Dimension</th>
+                    <th className="p-4 sm:p-5 font-bold text-blue-600 dark:text-cyan-400 bg-blue-500/10">STUZEN TECHNOLOGIES</th>
+                    <th className="p-4 sm:p-5 font-medium text-slate-500">Traditional Big Agencies</th>
+                    <th className="p-4 sm:p-5 font-medium text-slate-500">Freelancer Marketplace</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 dark:divide-white/5">
+                  {[
+                    {
+                      dim: 'Requirements Audit',
+                      stuzen: '45-Point Structured Discovery Blueprint with Instant Sign-Off PDF',
+                      trad: 'Vague meetings & 30-page bloated Word docs',
+                      free: 'Informal verbal calls / Guesswork',
+                    },
+                    {
+                      dim: 'Commercial Quotation',
+                      stuzen: '100% Pure INR Milestones (40% Deposit / 40% Staging / 20% Launch)',
+                      trad: 'Heavy markups, hidden licensing fees & scope renegotiation',
+                      free: 'Low initial bids, frequent budget escalation mid-project',
+                    },
+                    {
+                      dim: 'Velocity & Delivery',
+                      stuzen: 'Guaranteed 3–5 Week Rapid Sprints on Staging Previews',
+                      trad: '3–6 Months slow waterfall release cycles',
+                      free: 'Unpredictable delays & ghosting risks',
+                    },
+                    {
+                      dim: 'Codebase Quality',
+                      stuzen: 'Production React 19, TypeScript, Edge CDN & 0.38s Core Web Vitals',
+                      trad: 'Heavy bloated legacy WordPress themes & plugins',
+                      free: 'Spaghetti code, unmaintainable dependencies',
+                    },
+                    {
+                      dim: 'Post-Launch Care & SLA',
+                      stuzen: '99.98% Edge SLA, Automated Backups & Direct WhatsApp Support Desk',
+                      trad: 'Expensive mandatory retainer contracts (₹50k+/mo)',
+                      free: 'Zero warranty post-handover',
+                    },
+                  ].map((row, idx) => (
+                    <tr key={idx} className="hover:bg-slate-50/50 dark:hover:bg-white/2 transition-colors">
+                      <td className="p-4 sm:p-5 font-bold text-slate-900 dark:text-white">
+                        {row.dim}
+                      </td>
+                      <td className="p-4 sm:p-5 font-semibold text-blue-700 dark:text-cyan-300 bg-blue-500/5 flex items-start gap-2">
+                        <CheckCircle2 size={15} className="text-emerald-500 shrink-0 mt-0.5" />
+                        <span>{row.stuzen}</span>
+                      </td>
+                      <td className="p-4 sm:p-5 text-slate-600 dark:text-slate-400">
+                        {row.trad}
+                      </td>
+                      <td className="p-4 sm:p-5 text-slate-600 dark:text-slate-400">
+                        {row.free}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* ======================================================== */}
+        {/* Enterprise Client Testimonials                           */}
+        {/* ======================================================== */}
+        <div className="mt-28">
+          <div className="text-center mb-12">
+            <span className="font-mono text-xs font-bold text-blue-600 dark:text-cyan-400 uppercase tracking-widest">
+              EXECUTIVE TESTIMONIALS
+            </span>
+            <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Endorsed by Founders & Engineering Directors
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                quote: "Stuzen's 45-point discovery prevented 3 months of scope creep. We launched Aura Luxe clinic's platform in 28 days flat with zero downtime.",
+                author: "Dr. Vikram Malhotra",
+                role: "Founder & Clinical Director",
+                company: "Aura Luxe Healthcare, Indiranagar",
+                stars: 5,
+              },
+              {
+                quote: "The pure INR milestone transparency and automated WhatsApp lead dispatch helped us scale our institutional pipeline effortlessly.",
+                author: "Arjun Singhania",
+                role: "Managing Director",
+                company: "Nexora Capital, Mumbai",
+                stars: 5,
+              },
+              {
+                quote: "World-class Silicon Valley aesthetics and sub-second edge speeds. Their headless React storefront boosted our checkout conversions by 42%.",
+                author: "Priya Sharma",
+                role: "Head of Digital Growth",
+                company: "UrbanKicks D2C, Bengaluru",
+                stars: 5,
+              },
+            ].map((t, idx) => (
+              <div
+                key={idx}
+                className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-6 shadow-md flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center gap-1 text-amber-400 mb-3">
+                    {[...Array(t.stars)].map((_, i) => (
+                      <Star key={i} size={14} fill="currentColor" />
+                    ))}
+                  </div>
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed italic">
+                    "{t.quote}"
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/5">
+                  <div className="font-bold text-xs text-slate-900 dark:text-white">
+                    {t.author}
+                  </div>
+                  <div className="text-[11px] text-slate-500">
+                    {t.role} • {t.company}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ======================================================== */}
+        {/* Direct WhatsApp Instant Consultation Banner              */}
+        {/* ======================================================== */}
+        <div className="mt-28 rounded-3xl bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
+            <div className="max-w-2xl space-y-2">
+              <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/20 text-white inline-block">
+                DIRECT SOLUTIONS HOTLINE
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                Need an Instant Architectural Consultation?
+              </h3>
+              <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed">
+                Connect directly with Stuzen Solutions Lead Ranjith on WhatsApp. Discuss your project scope, receive quotation blueprints, or schedule a 15-minute technical review.
+              </p>
+            </div>
+
+            <a
+              href="https://wa.me/917418572022?text=Hi%20Stuzen%20Technologies%2C%20I%20am%20interested%20in%20starting%20a%20project%20discovery%20session."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 rounded-2xl bg-white px-7 py-4 text-xs sm:text-sm font-bold text-emerald-800 shadow-xl hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer shrink-0"
+            >
+              <MessageCircle size={18} className="text-emerald-600" />
+              <span>Chat on WhatsApp: +91 74185 72022</span>
+            </a>
+          </div>
+        </div>
 
         {/* Interactive "How We Discover & Build" Workflow */}
         <div className="mt-28 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0d0f14] p-8 sm:p-12 shadow-sm">
