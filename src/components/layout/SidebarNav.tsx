@@ -375,31 +375,6 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
               </button>
             </div>
           </div>
-
-          {/* Group 3: Live Engineering Metrics (When expanded) */}
-          {!isCollapsed && (
-            <div className="p-3.5 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-white/5 dark:to-transparent border border-slate-200/80 dark:border-white/10 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
-                  <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  SYSTEM METRICS
-                </span>
-                <span className="text-[9px] font-mono text-blue-600 dark:text-cyan-400 font-bold">
-                  v2.5 SLA
-                </span>
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-center pt-1 font-mono">
-                <div className="p-1.5 rounded-lg bg-white dark:bg-white/5 border border-slate-200/60 dark:border-white/5">
-                  <div className="text-[11px] font-extrabold text-blue-600 dark:text-cyan-400">&lt; 0.38s</div>
-                  <div className="text-[8px] text-slate-400 uppercase">Edge TTFB</div>
-                </div>
-                <div className="p-1.5 rounded-lg bg-white dark:bg-white/5 border border-slate-200/60 dark:border-white/5">
-                  <div className="text-[11px] font-extrabold text-emerald-600 dark:text-emerald-400">100% INR</div>
-                  <div className="text-[8px] text-slate-400 uppercase">Pure Rupees</div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Bottom Dock: Direct WhatsApp Hotline + Theme Toggle */}
