@@ -67,7 +67,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectMode }) => {
                 Engineering SLA
               </span>
               <ul className="mt-3 space-y-2 text-slate-600 dark:text-slate-400">
-                <li className="flex items-center gap-1.5"><ShieldCheck size={13} className="text-emerald-500" /> 100% Pure INR Billing</li>
+                <li className="flex items-center gap-1.5"><ShieldCheck size={13} className="text-emerald-500" /> Transparent Milestone Billing</li>
                 <li className="flex items-center gap-1.5"><Sparkles size={13} className="text-cyan-500" /> &lt;0.38s Core Web Vitals</li>
                 <li className="flex items-center gap-1.5"><Terminal size={13} className="text-blue-500" /> 99.98% Cloud SLA</li>
               </ul>

@@ -144,100 +144,45 @@
   animation: text-flow 6s ease infinite;
 }
 
-/* 2. Floating 3D Physics */
-@keyframes float-gentle {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-7px) rotate(0.3deg); }
-}
-.animate-float {
-  animation: float-gentle 5s ease-in-out infinite;
-}
-
-@keyframes float-reverse {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(7px) rotate(-0.3deg); }
-}
-.animate-float-reverse {
-  animation: float-reverse 6s ease-in-out infinite;
-}
-
-/* 3. Infinite Marquee Ticker */
+/* 2. Infinite Marquee Ticker (GPU-Accelerated Smooth 60FPS) */
 @keyframes marquee-scroll {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translate3d(0%, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 .animate-marquee {
   display: flex;
   width: max-content;
+  will-change: transform;
   animation: marquee-scroll 26s linear infinite;
 }
 .animate-marquee:hover {
   animation-play-state: paused;
 }
 
-/* 4. Cyber Laser Grid Scanner */
-@keyframes grid-scan-line {
-  0% { top: -5%; opacity: 0; }
-  10% { opacity: 0.85; }
-  90% { opacity: 0.85; }
-  100% { top: 105%; opacity: 0; }
-}
-.grid-scanner {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent 5%, rgba(6, 182, 212, 0.7) 30%, rgba(37, 99, 235, 1) 50%, rgba(6, 182, 212, 0.7) 70%, transparent 95%);
-  box-shadow: 0 0 16px 2px rgba(6, 182, 212, 0.7);
-  animation: grid-scan-line 7s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* 5. Glowing Border Beam (Conic Gradient) */
-@keyframes spin-beam {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.border-beam-container {
-  position: relative;
-  overflow: hidden;
-  border-radius: 1.5rem;
-}
-.border-beam-container::before {
-  content: '';
-  position: absolute;
-  inset: -150%;
-  background: conic-gradient(from 0deg, transparent 0deg, transparent 65deg, #2563eb 115deg, #06b6d4 155deg, transparent 195deg);
-  animation: spin-beam 5s linear infinite;
-  z-index: 0;
-  pointer-events: none;
-}
-.border-beam-content {
-  position: relative;
-  z-index: 1;
-  background: inherit;
-  border-radius: inherit;
-  margin: 1px;
-}
-
-/* 6. Radiant Breathing Aura */
-@keyframes aura-pulse {
-  0%, 100% {
-    box-shadow: 0 0 25px -3px rgba(37, 99, 235, 0.35), 0 0 12px -2px rgba(6, 182, 212, 0.25);
-  }
-  50% {
-    box-shadow: 0 0 45px 5px rgba(37, 99, 235, 0.65), 0 0 25px 3px rgba(6, 182, 212, 0.5);
-  }
-}
-.animate-aura-glow {
-  animation: aura-pulse 3.5s ease-in-out infinite;
-}
-
-/* 7. Shimmer Card Sweep */
+/* 3. Shimmer Card Sweep */
 .shimmer-card {
   position: relative;
   overflow: hidden;
+}
+.shimmer-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 65%
+  );
+  transform: rotate(25deg) translateY(-100%);
+  transition: transform 0.8s ease-in-out;
+  pointer-events: none;
+}
+.shimmer-card:hover::after {
+  transform: rotate(25deg) translateY(100%);
 }
 .shimmer-card::after {
   content: '';

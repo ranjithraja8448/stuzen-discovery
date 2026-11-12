@@ -57,7 +57,7 @@ export const AboutView: React.FC<AboutViewProps> = ({
     {
       num: '04',
       title: 'Radical Transparency',
-      tagline: '100% Pure INR with zero hidden surprises.',
+      tagline: 'Milestone billing with zero hidden surprises.',
       desc: 'No vague USD conversions, no scope creeping mid-sprint. Every engagement begins with our binding 45-point Discovery Audit, transparent milestone payments, and weekly video walkthroughs.',
       icon: ShieldCheck,
       color: 'from-emerald-500 to-teal-600',

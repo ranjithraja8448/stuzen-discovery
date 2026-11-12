@@ -57,9 +57,8 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
 
   return (
     <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden bg-slate-50 text-slate-900 dark:bg-[#09090b] dark:text-slate-100 transition-colors duration-200">
-      {/* Architectural Background Grid, Cyber Scanner Beam & Ambient Glows */}
+      {/* Architectural Background Grid & Ambient Glows */}
       <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
-      <div className="grid-scanner" />
       <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[900px] rounded-full bg-gradient-to-tr from-blue-600/15 via-cyan-500/10 to-transparent blur-[120px] pointer-events-none" />
       <div className="absolute top-[40%] -right-40 h-[400px] w-[500px] rounded-full bg-blue-700/10 blur-[100px] pointer-events-none" />
 
@@ -88,7 +87,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             transition={{ duration: 0.5 }}
             className="flex justify-center mb-6"
           >
-            <div className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-3xl bg-white/90 dark:bg-[#0c0e14]/90 backdrop-blur-xl border border-slate-200 dark:border-cyan-500/30 shadow-2xl animate-aura-glow inline-flex items-center justify-center transition-all duration-300">
+            <div className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-3xl bg-white/90 dark:bg-[#0c0e14]/90 backdrop-blur-xl border border-slate-200 dark:border-cyan-500/30 shadow-2xl inline-flex items-center justify-center transition-all duration-300">
               <img
                 src={theme === 'dark' ? '/brand/STUZEN_Logo_White.png' : '/brand/STUZEN_Logo_Black.png'}
                 alt="STUZEN TECHNOLOGIES"
@@ -176,17 +175,16 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             </a>
           </motion.div>
 
-          {/* Enterprise Performance & Trust Metrics Bar */}
+          {/* Enterprise Performance & Trust Metrics Bar (Clean 3-Pillar Rigor) */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
-            className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto"
+            className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto"
           >
             {[
               { val: '45-Point', label: 'Discovery Audit Rigor', sub: 'Zero Scope Creep' },
               { val: '< 0.38s', label: 'Core Web Vitals TTFB', sub: 'Sub-Second Edge Speeds' },
-              { val: '100% Pure', label: 'Indian Rupee Transparency', sub: 'Zero USD Remnants' },
               { val: '99.98%', label: 'Cloud SLA & Uptime', sub: 'Automated Daily Backups' },
             ].map((stat, i) => (
               <div
@@ -214,7 +212,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             transition={{ delay: 0.45, duration: 0.6 }}
             className="mt-14 relative mx-auto max-w-5xl"
           >
-            <div className="relative rounded-2xl border border-slate-300/80 dark:border-white/15 bg-white dark:bg-[#0c0e14] shadow-2xl overflow-hidden backdrop-blur-xl animate-float">
+            <div className="relative rounded-2xl border border-slate-300/80 dark:border-white/15 bg-white dark:bg-[#0c0e14] shadow-2xl overflow-hidden backdrop-blur-xl">
               {/* Window Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-white/5 text-xs font-mono">
                 <div className="flex items-center gap-2">
@@ -384,7 +382,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
           <div className="animate-marquee whitespace-nowrap flex items-center gap-8 font-mono text-[11px] font-bold tracking-wider text-slate-600 dark:text-slate-400 select-none">
             {[
               '⚡ SUB-0.38S CORE WEB VITALS',
-              '💎 100% PURE INR PRICING',
+              '🛡️ BINDING LEGAL SLA',
               '🛡️ ZERO SCOPE CREEP GUARANTEE',
               '🤖 WHATSAPP CLOUD API AUTOMATION',
               '🚀 REACT 19 & NEXT.JS APP ROUTER',
@@ -392,7 +390,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
               '🌐 FASTAPI & POSTGRESQL ACID',
               '📦 45-POINT AUDIT RIGOR',
               '⚡ SUB-0.38S CORE WEB VITALS',
-              '💎 100% PURE INR PRICING',
+              '🛡️ BINDING LEGAL SLA',
               '🛡️ ZERO SCOPE CREEP GUARANTEE',
               '🤖 WHATSAPP CLOUD API AUTOMATION',
               '🚀 REACT 19 & NEXT.JS APP ROUTER',
@@ -871,7 +869,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
           };
 
           return (
-            <div id="quick-scope-estimator" className="mt-20 sm:mt-24 rounded-3xl border-2 border-blue-500/40 bg-gradient-to-b from-white to-slate-50 dark:from-[#0d0f15] dark:to-[#07090d] p-4 sm:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl animate-aura-glow">
+            <div id="quick-scope-estimator" className="mt-20 sm:mt-24 rounded-3xl border border-blue-500/30 bg-gradient-to-b from-white to-slate-50 dark:from-[#0d0f15] dark:to-[#07090d] p-4 sm:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl">
               {/* Architectural accent glow */}
               <div className="absolute top-0 right-0 h-64 w-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -889,8 +887,8 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
                   </p>
                 </div>
 
-                <span className="font-mono text-xs font-bold px-3 py-1 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shrink-0">
-                  PURE INR (₹) • ZERO USD
+                <span className="font-mono text-xs font-bold px-3 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-cyan-400 border border-blue-500/20 shrink-0">
+                  INSTANT ESTIMATE (₹)
                 </span>
               </div>
 
@@ -1083,7 +1081,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
                     },
                     {
                       dim: 'Commercial Quotation',
-                      stuzen: '100% Pure INR Milestones (40% Deposit / 40% Staging / 20% Launch)',
+                      stuzen: 'Transparent Milestone Structure (40% Deposit / 40% Staging / 20% Launch)',
                       trad: 'Heavy markups, hidden licensing fees & scope renegotiation',
                       free: 'Low initial bids, frequent budget escalation mid-project',
                     },
