@@ -1,16 +1,31 @@
 import React from 'react';
 import { useTheme } from './ThemeContext';
-import { ShieldCheck, Sparkles, Terminal, Code2 } from 'lucide-react';
+import { ShieldCheck, Sparkles, Terminal, Code2, ArrowUpRight } from 'lucide-react';
+import { AppMode } from './Navbar';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onSelectMode?: (mode: AppMode) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onSelectMode }) => {
   const { theme } = useTheme();
 
+  const handleNav = (mode: AppMode) => {
+    if (onSelectMode) {
+      onSelectMode(mode);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <footer className="border-t border-slate-200 dark:border-white/10 bg-white dark:bg-[#07080a] py-12 transition-colors duration-200 no-print">
+    <footer className="border-t border-slate-200 dark:border-white/10 bg-white dark:bg-[#07080a] py-14 transition-colors duration-200 no-print">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-10 border-b border-slate-200 dark:border-white/5">
           <div className="max-w-md">
-            <div className="flex items-center gap-3">
+            <div 
+              onClick={() => handleNav('landing')} 
+              className="flex items-center gap-3 cursor-pointer select-none"
+            >
               <img
                 src={theme === 'dark' ? '/brand/STUZEN_Logo_White.png' : '/brand/STUZEN_Logo_Transparent.png'}
                 alt="Stuzen Technologies"
@@ -25,13 +40,13 @@ export const Footer: React.FC = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-xs">
             <div>
               <span className="font-mono text-[10px] font-semibold text-blue-500 uppercase tracking-wider">
-                Agency Pillars
+                Agency Suites
               </span>
               <ul className="mt-3 space-y-2 text-slate-600 dark:text-slate-400">
-                <li className="hover:text-blue-500 transition-colors cursor-pointer">Website Development</li>
-                <li className="hover:text-blue-500 transition-colors cursor-pointer">Custom Software Engineering</li>
-                <li className="hover:text-blue-500 transition-colors cursor-pointer">AI & Workflow Automation</li>
-                <li className="hover:text-blue-500 transition-colors cursor-pointer">WhatsApp Business Platform</li>
+                <li onClick={() => handleNav('services')} className="hover:text-blue-500 transition-colors cursor-pointer">Three Core Pillars</li>
+                <li onClick={() => handleNav('about')} className="hover:text-blue-500 transition-colors cursor-pointer">About Stuzen Story</li>
+                <li onClick={() => handleNav('portfolio')} className="hover:text-blue-500 transition-colors cursor-pointer">Delivered Case Studies</li>
+                <li onClick={() => handleNav('contact')} className="hover:text-blue-500 transition-colors cursor-pointer">Solutions Desk & Contact</li>
               </ul>
             </div>
 
@@ -40,21 +55,21 @@ export const Footer: React.FC = () => {
                 Discovery System
               </span>
               <ul className="mt-3 space-y-2 text-slate-600 dark:text-slate-400">
-                <li className="hover:text-blue-500 transition-colors cursor-pointer">45-Point Audit Matrix</li>
-                <li className="hover:text-blue-500 transition-colors cursor-pointer">Executive Architecture Blueprint</li>
-                <li className="hover:text-blue-500 transition-colors cursor-pointer">Internal Lead Vault</li>
-                <li className="hover:text-blue-500 transition-colors cursor-pointer">Official PDF Dossier Export</li>
+                <li onClick={() => handleNav('discovery')} className="hover:text-blue-500 transition-colors cursor-pointer">45-Point Audit Matrix</li>
+                <li onClick={() => handleNav('discovery')} className="hover:text-blue-500 transition-colors cursor-pointer">Live Scope Blueprint</li>
+                <li onClick={() => handleNav('vault')} className="hover:text-blue-500 transition-colors cursor-pointer">Staff Lead Vault (PIN)</li>
+                <li onClick={() => handleNav('landing')} className="hover:text-blue-500 transition-colors cursor-pointer">5-Sec Scope Estimator</li>
               </ul>
             </div>
 
             <div>
               <span className="font-mono text-[10px] font-semibold text-blue-500 uppercase tracking-wider">
-                Standards
+                Engineering SLA
               </span>
               <ul className="mt-3 space-y-2 text-slate-600 dark:text-slate-400">
-                <li className="flex items-center gap-1.5"><ShieldCheck size={13} className="text-emerald-500" /> Enterprise SLA</li>
-                <li className="flex items-center gap-1.5"><Sparkles size={13} className="text-cyan-500" /> React 19 / Modern Tech</li>
-                <li className="flex items-center gap-1.5"><Terminal size={13} className="text-blue-500" /> Edge Infrastructure</li>
+                <li className="flex items-center gap-1.5"><ShieldCheck size={13} className="text-emerald-500" /> 100% Pure INR Billing</li>
+                <li className="flex items-center gap-1.5"><Sparkles size={13} className="text-cyan-500" /> &lt;0.38s Core Web Vitals</li>
+                <li className="flex items-center gap-1.5"><Terminal size={13} className="text-blue-500" /> 99.98% Cloud SLA</li>
               </ul>
             </div>
           </div>
@@ -63,13 +78,12 @@ export const Footer: React.FC = () => {
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-500">
           <p>© {new Date().getFullYear()} STUZEN TECHNOLOGIES. All rights reserved. Confidential Discovery Engine.</p>
           <div className="flex items-center gap-4 font-mono text-[11px]">
-            <span>STUZEN-OS v2.4</span>
+            <span>STUZEN-OS v2.5</span>
             <span>•</span>
-            <span className="text-blue-500">Bangalore, India</span>
+            <span className="text-blue-500">Bengaluru Tech Hub, India</span>
           </div>
         </div>
       </div>
     </footer>
   );
 };
-

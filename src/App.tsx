@@ -7,6 +7,10 @@ import { InternalVaultView } from './components/vault/InternalVaultView';
 import { StaffPinModal } from './components/vault/StaffPinModal';
 import { OfficialPrintDossier } from './components/print/OfficialPrintDossier';
 import { StuzenAICopilot } from './components/ai/StuzenAICopilot';
+import { AboutView } from './components/pages/AboutView';
+import { ServicesView } from './components/pages/ServicesView';
+import { PortfolioView } from './components/pages/PortfolioView';
+import { ContactView } from './components/pages/ContactView';
 import { DiscoveryFormData } from './types/discovery';
 import { DEMO_CLIENT_DATA, INITIAL_VAULT_RECORDS } from './data/demoClients';
 import { analyzeScope } from './utils/scopeAnalyzer';
@@ -412,6 +416,34 @@ export const App: React.FC = () => {
             />
           )}
 
+          {currentMode === 'about' && (
+            <AboutView
+              onNavigateMode={setCurrentMode}
+              onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
+            />
+          )}
+
+          {currentMode === 'services' && (
+            <ServicesView
+              onNavigateMode={setCurrentMode}
+              onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
+            />
+          )}
+
+          {currentMode === 'portfolio' && (
+            <PortfolioView
+              onNavigateMode={setCurrentMode}
+              onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
+            />
+          )}
+
+          {currentMode === 'contact' && (
+            <ContactView
+              onNavigateMode={setCurrentMode}
+              onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
+            />
+          )}
+
           {currentMode === 'discovery' && (
             <DiscoveryEngine
               formData={formData}
@@ -446,7 +478,7 @@ export const App: React.FC = () => {
         </div>
 
         {/* Universal Footer */}
-        <Footer />
+        <Footer onSelectMode={setCurrentMode} />
       </div>
 
       {/* Staff Security PIN Modal for Confidential Lead Vault Access */}
