@@ -12,7 +12,8 @@ import { Section07TechnicalOperational } from './sections/Section07TechnicalOper
 import { Section08SEOAnalytics } from './sections/Section08SEOAnalytics';
 import { Section09TimelineBudget } from './sections/Section09TimelineBudget';
 import { Section10SummarySignoff } from './sections/Section10SummarySignoff';
-import { ChevronLeft, ChevronRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CheckCircle2, AlertCircle, FileText, Sparkles } from 'lucide-react';
+import confetti from 'canvas-confetti';
 
 interface FormCanvasProps {
   formData: DiscoveryFormData;
@@ -21,6 +22,8 @@ interface FormCanvasProps {
   onUpdateSection: (sectionKey: keyof DiscoveryFormData, field: string, value: any) => void;
   onAutoGenerateSummary: () => void;
   scopeAnalysis: ScopeAnalysis;
+  onOpenPrint?: () => void;
+  onSaveToVault?: () => void;
 }
 
 export const FormCanvas: React.FC<FormCanvasProps> = ({
@@ -30,6 +33,8 @@ export const FormCanvas: React.FC<FormCanvasProps> = ({
   onUpdateSection,
   onAutoGenerateSummary,
   scopeAnalysis,
+  onOpenPrint,
+  onSaveToVault,
 }) => {
   const [validationError, setValidationError] = useState<string | null>(null);
 
@@ -263,17 +268,41 @@ export const FormCanvas: React.FC<FormCanvasProps> = ({
                 <ChevronRight size={16} />
               </button>
             ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  onSelectSection('s01');
-                  scrollToCanvasTop();
-                }}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-xs font-semibold text-white hover:bg-emerald-500 shadow-md cursor-pointer transition-all"
-              >
-                <CheckCircle2 size={16} />
-                <span>Review From Section 01</span>
-              </button>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSelectSection('s01');
+                    scrollToCanvasTop();
+                  }}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] px-4 py-3 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 cursor-pointer shadow-sm transition-all"
+                >
+                  <CheckCircle2 size={15} />
+                  <span>Review From Step 01</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (onSaveToVault) {
+                      onSaveToVault();
+                    }
+                    confetti({
+                      particleCount: 75,
+                      spread: 70,
+                      origin: { y: 0.6 },
+                      colors: ['#2563EB', '#06B6D4', '#10B981'],
+                    });
+                    if (onOpenPrint) {
+                      onOpenPrint();
+                    }
+                  }}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-600 px-6 py-3 text-xs font-bold text-white shadow-lg shadow-blue-500/25 hover:opacity-95 active:scale-95 transition-all cursor-pointer"
+                >
+                  <Sparkles size={15} />
+                  <span>🚀 Complete Discovery & View Official PDF Dossier</span>
+                </button>
+              </div>
             )}
           </div>
         </div>

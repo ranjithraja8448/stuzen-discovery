@@ -88,6 +88,8 @@ export const DiscoveryEngine: React.FC<DiscoveryEngineProps> = ({
           onUpdateSection={onUpdateSection}
           onAutoGenerateSummary={onAutoGenerateSummary}
           scopeAnalysis={scopeAnalysis}
+          onOpenPrint={onOpenPrint}
+          onSaveToVault={onSaveToVault}
         />
 
         {/* Right Pane: Live Sticky Project Blueprint */}
