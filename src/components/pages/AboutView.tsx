@@ -377,3 +377,4 @@ export const AboutView: React.FC<AboutViewProps> = ({
     </div>
   );
 };
+

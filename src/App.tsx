@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar, AppMode } from './components/layout/Navbar';
+import { AppMode } from './components/layout/Navbar';
+import { SidebarNav } from './components/layout/SidebarNav';
 import { Footer } from './components/layout/Footer';
 import { AgencyLandingView } from './components/landing/AgencyLandingView';
 import { DiscoveryEngine } from './components/discovery/DiscoveryEngine';
@@ -393,10 +394,10 @@ export const App: React.FC = () => {
         </div>
       )}
 
-      {/* Main App Root Shell (Marked with no-print so window.print() completely hides it) */}
-      <div id="app-root-shell" className="flex-1 flex flex-col no-print">
-        {/* Top Universal Navbar */}
-        <Navbar
+      {/* Main App Root Shell (Side-Dock Executive Studio Layout) */}
+      <div id="app-root-shell" className="flex-1 flex flex-col lg:flex-row min-h-screen no-print bg-[#F8FAFC] dark:bg-[#05070B] text-slate-900 dark:text-slate-100 transition-colors">
+        {/* Left Sidebar Navigation Dock */}
+        <SidebarNav
           currentMode={currentMode}
           onSelectMode={setCurrentMode}
           vaultCount={vaultRecords.length}
@@ -405,8 +406,9 @@ export const App: React.FC = () => {
           onOpenStaffVault={handleOpenStaffVault}
         />
 
-        {/* Mode Viewports */}
-        <div className="flex-1 app-viewport">
+        {/* Right Scrollable Content Viewport */}
+        <div className="flex-1 min-w-0 flex flex-col h-auto lg:h-screen lg:overflow-y-auto overflow-x-hidden scroll-smooth">
+          <div className="flex-1 app-viewport">
           {currentMode === 'landing' && (
             <AgencyLandingView
               onStartDiscovery={handleStartDiscoveryWithSection}
@@ -475,10 +477,11 @@ export const App: React.FC = () => {
               onLockVault={handleLockVault}
             />
           )}
-        </div>
+          </div>
 
-        {/* Universal Footer */}
-        <Footer onSelectMode={setCurrentMode} />
+          {/* Universal Footer */}
+          <Footer onSelectMode={setCurrentMode} />
+        </div>
       </div>
 
       {/* Staff Security PIN Modal for Confidential Lead Vault Access */}
