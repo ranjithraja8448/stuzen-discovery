@@ -69,7 +69,10 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
           className="flex justify-center"
         >
           <div className="inline-flex items-center gap-2.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 backdrop-blur-md shadow-lg shadow-cyan-500/10">
-            <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
+            </span>
             <span>● STUZEN ARCHITECTURAL STUDIO • THE SYSTEM FOR BESPOKE DIGITAL DOMINANCE</span>
           </div>
         </motion.div>
@@ -131,10 +134,10 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
           >
             <button
               onClick={() => onStartDiscovery('s01')}
-              className="inline-flex items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 px-7 py-4 text-xs sm:text-sm font-bold text-white shadow-xl shadow-blue-500/25 hover:opacity-95 active:scale-95 transition-all cursor-pointer group w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 px-7 py-4 text-xs sm:text-sm font-bold text-white shadow-xl shadow-blue-500/25 hover:opacity-95 active:scale-[0.98] quiet-press quiet-lift transition-all cursor-pointer group w-full sm:w-auto"
             >
               <span>🚀 Launch 45-Point Discovery Engine</span>
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1 duration-200" />
             </button>
 
             <button
@@ -142,9 +145,9 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
                 const el = document.getElementById('quick-scope-estimator');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 dark:border-white/15 bg-white dark:bg-white/5 px-6 py-4 text-xs sm:text-sm font-bold text-slate-800 dark:text-white backdrop-blur-md hover:bg-slate-100 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer shadow-xs w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 dark:border-white/15 bg-white dark:bg-white/5 px-6 py-4 text-xs sm:text-sm font-bold text-slate-800 dark:text-white backdrop-blur-md hover:bg-slate-100 dark:hover:bg-white/10 active:scale-[0.98] quiet-press quiet-lift transition-all cursor-pointer shadow-xs w-full sm:w-auto"
             >
-              <Calculator size={16} className="text-blue-600 dark:text-cyan-400" />
+              <Calculator size={16} className="text-blue-600 dark:text-cyan-400 group-hover:rotate-6 transition-transform" />
               <span>⚡ 5-Sec Scope Estimator</span>
             </button>
           </motion.div>
@@ -160,8 +163,12 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
               href="https://wa.me/917418572022?text=Hi%20Stuzen%20Technologies%2C%20I%20am%20interested%20in%20an%20instant%20project%20consultation."
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer quiet-press"
             >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
               <MessageCircle size={15} />
               <span>WhatsApp Solutions Desk: +91 74185 72022 (Fast Response)</span>
             </a>
@@ -182,9 +189,10 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             ].map((stat, i) => (
               <div
                 key={i}
-                className="p-3.5 rounded-2xl bg-white/80 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 backdrop-blur-md shadow-xs text-center"
+                className="p-3.5 rounded-2xl bg-white/80 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 backdrop-blur-md shadow-xs text-center quiet-lift hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/10 group cursor-default transition-all duration-200"
               >
-                <div className="font-mono text-xl sm:text-2xl font-extrabold text-blue-600 dark:text-cyan-400">
+                <div className="h-0.5 w-4 bg-gradient-to-r from-blue-500 to-cyan-400 mx-auto rounded-full group-hover:w-8 transition-all duration-300 mb-1.5 opacity-60 group-hover:opacity-100" />
+                <div className="font-mono text-xl sm:text-2xl font-extrabold text-blue-600 dark:text-cyan-400 group-hover:scale-105 transition-transform duration-200">
                   {stat.val}
                 </div>
                 <div className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">
@@ -931,14 +939,14 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
                           key={mod.id}
                           type="button"
                           onClick={() => toggleAddon(mod.id)}
-                          className={`flex items-center justify-between p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                          className={`flex items-center justify-between p-3 rounded-xl border text-left quiet-lift quiet-press transition-all cursor-pointer ${
                             isChecked
-                              ? 'bg-blue-50 dark:bg-blue-950/40 border-blue-500 text-blue-900 dark:text-cyan-200'
+                              ? 'bg-blue-50 dark:bg-blue-950/40 border-blue-500 text-blue-900 dark:text-cyan-200 shadow-sm shadow-blue-500/10'
                               : 'bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-300'
                           }`}
                         >
                           <div className="flex items-center gap-2.5 min-w-0">
-                            <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${
+                            <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-colors ${
                               isChecked
                                 ? 'bg-blue-600 border-blue-600 text-white'
                                 : 'border-slate-300 dark:border-white/20'
@@ -960,13 +968,13 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
                 </div>
 
                 {/* Calculation Summary Box */}
-                <div className="rounded-2xl border border-blue-500/30 bg-blue-600/5 dark:bg-blue-950/30 p-5 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div className="rounded-2xl border border-blue-500/30 bg-blue-600/5 dark:bg-blue-950/30 p-5 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 transition-all">
                   <div className="space-y-1">
                     <span className="font-mono text-[11px] font-bold text-blue-600 dark:text-cyan-400 uppercase tracking-widest block">
                       DYNAMIC CALIBRATION ESTIMATE
                     </span>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white font-mono">
+                      <span key={`${minEstimate}-${maxEstimate}`} className="price-pulse inline-block text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white font-mono">
                         ₹{minEstimate.toLocaleString('en-IN')} – ₹{maxEstimate.toLocaleString('en-IN')}
                       </span>
                       <span className="font-mono text-xs text-slate-500">(Excl. GST)</span>
@@ -986,10 +994,10 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
                   <button
                     type="button"
                     onClick={handleApplyEstimate}
-                    className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-4 text-xs font-bold text-white shadow-lg shadow-blue-500/30 hover:from-blue-500 hover:to-cyan-500 active:scale-95 transition-all cursor-pointer group shrink-0"
+                    className="w-full md:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-4 text-xs font-bold text-white shadow-lg shadow-blue-500/30 hover:from-blue-500 hover:to-cyan-500 active:scale-[0.98] quiet-press transition-all cursor-pointer group shrink-0"
                   >
                     <span>Apply to 45-Point Discovery Portal</span>
-                    <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+                    <ArrowRight size={15} className="transition-transform group-hover:translate-x-1 duration-200" />
                   </button>
                 </div>
               </div>

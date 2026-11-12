@@ -146,7 +146,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({
             <div
               key={pillar.id}
               id={pillar.id}
-              className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-8 sm:p-12 shadow-sm hover:shadow-xl transition-all"
+              className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-8 sm:p-12 shadow-sm quiet-lift hover:shadow-xl hover:border-blue-500/40 dark:hover:border-cyan-500/40 transition-all duration-300"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
                 {/* Left Column: Overview & Deliverables */}

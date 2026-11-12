@@ -241,7 +241,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
           {filteredStudies.map((study) => (
             <div
               key={study.id}
-              className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-6 shadow-sm hover:shadow-xl hover:border-blue-500/40 dark:hover:border-cyan-500/40 transition-all duration-300 flex flex-col justify-between"
+              onClick={() => setActiveModalStudy(study)}
+              className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-6 shadow-sm quiet-lift hover:shadow-xl hover:border-blue-500/40 dark:hover:border-cyan-500/40 transition-all duration-300 flex flex-col justify-between cursor-pointer"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -262,8 +263,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                 </p>
 
                 {/* Key Metric Highlight Callout */}
-                <div className="mt-5 p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-500/20 text-center">
-                  <div className="text-2xl sm:text-3xl font-extrabold font-mono text-blue-600 dark:text-cyan-400">
+                <div className="mt-5 p-4 rounded-xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-500/20 text-center transition-all group-hover:border-blue-500/40">
+                  <div className="text-2xl sm:text-3xl font-extrabold font-mono text-blue-600 dark:text-cyan-400 group-hover:scale-105 transition-transform duration-200">
                     {study.highlightMetric}
                   </div>
                   <div className="text-[11px] font-bold text-slate-800 dark:text-slate-200 mt-0.5">

@@ -126,7 +126,10 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
               alt="Stuzen Icon" 
               className="h-full w-full object-contain"
             />
-            <span className="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#07090e]" />
+            <span className="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 ring-2 ring-white dark:ring-[#07090e]" />
+            </span>
           </div>
           <div>
             <div className="flex items-center gap-1.5">
@@ -260,17 +263,17 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
                     key={item.id}
                     onClick={() => handleItemClick(item.id)}
                     title={isCollapsed ? item.label : undefined}
-                    className={`w-full group flex items-center gap-3 rounded-2xl px-3 py-2.5 text-left transition-all duration-200 cursor-pointer ${
+                    className={`w-full group flex items-center gap-3 rounded-2xl px-3 py-2.5 text-left quiet-press transition-all duration-200 cursor-pointer ${
                       isActive
                         ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-500/20'
-                        : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
+                        : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 hover:translate-x-1'
                     } ${isCollapsed ? 'justify-center px-0' : ''}`}
                   >
                     <div className={`p-1.5 rounded-xl transition-colors shrink-0 ${
                       isActive
                         ? 'bg-white/20 text-white'
                         : item.highlight
-                        ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-cyan-400 group-hover:scale-105'
+                        ? 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-cyan-400 group-hover:scale-105 transition-transform'
                         : 'bg-slate-100 dark:bg-white/5 text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white'
                     }`}>
                       <Icon size={18} />
@@ -321,10 +324,10 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
                   onOpenStaffVault();
                 }}
                 title={isCollapsed ? 'Staff Lead Vault (PIN 7777)' : undefined}
-                className={`w-full flex items-center gap-3 rounded-2xl px-3 py-2.5 text-left transition-all cursor-pointer ${
+                className={`w-full flex items-center gap-3 rounded-2xl px-3 py-2.5 text-left quiet-press transition-all cursor-pointer ${
                   currentMode === 'vault'
                     ? 'bg-amber-500/15 border border-amber-500/40 text-amber-700 dark:text-amber-300 font-bold'
-                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5'
+                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 hover:translate-x-1'
                 } ${isCollapsed ? 'justify-center px-0' : ''}`}
               >
                 <div className="p-1.5 rounded-xl bg-amber-500/10 text-amber-500 shrink-0">
@@ -355,7 +358,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
                   onOpenPrintPreview();
                 }}
                 title={isCollapsed ? 'Official Printable PDF Dossier' : undefined}
-                className={`w-full flex items-center gap-3 rounded-2xl px-3 py-2.5 text-left text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 transition-all cursor-pointer ${
+                className={`w-full flex items-center gap-3 rounded-2xl px-3 py-2.5 text-left quiet-press text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 hover:translate-x-1 transition-all cursor-pointer ${
                   isCollapsed ? 'justify-center px-0' : ''
                 }`}
               >

@@ -204,7 +204,7 @@ export const ContactView: React.FC<ContactViewProps> = ({
           </div>
 
           {/* Right Column: Interactive Contact Form */}
-          <div className="lg:col-span-7 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-8 sm:p-12 shadow-sm">
+          <div className="lg:col-span-7 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-8 sm:p-12 shadow-sm quiet-lift">
             {submitted ? (
               <div className="py-12 text-center space-y-4 animate-fadeIn">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">

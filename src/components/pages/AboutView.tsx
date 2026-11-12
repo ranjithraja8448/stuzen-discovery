@@ -197,7 +197,7 @@ export const AboutView: React.FC<AboutViewProps> = ({
             return (
               <div
                 key={i}
-                className="group relative rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-8 shadow-xs hover:shadow-xl hover:border-blue-500/40 dark:hover:border-cyan-500/40 transition-all duration-300"
+                className="group relative rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#12141a] p-8 shadow-xs quiet-lift hover:shadow-xl hover:border-blue-500/40 dark:hover:border-cyan-500/40 transition-all duration-300"
               >
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-mono text-xs font-extrabold px-2.5 py-1 rounded-md bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-200">

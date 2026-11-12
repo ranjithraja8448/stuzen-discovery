@@ -126,10 +126,10 @@ export const LeftSidebarNav: React.FC<LeftSidebarNavProps> = ({
                   key={sec.id}
                   type="button"
                   onClick={() => onSelectSection(sec.id)}
-                  className={`w-full text-left rounded-xl p-2.5 transition-all duration-200 flex items-center justify-between group cursor-pointer ${
+                  className={`w-full text-left rounded-xl p-2.5 transition-all duration-200 flex items-center justify-between group cursor-pointer quiet-press ${
                     isActive
-                      ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20 dark:bg-blue-600'
-                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/5'
+                      ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20 dark:bg-blue-600 font-bold'
+                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-200/60 dark:hover:bg-white/5 hover:translate-x-1'
                   }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
