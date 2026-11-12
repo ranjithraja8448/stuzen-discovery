@@ -377,3 +377,4 @@ export const StuzenAICopilot: React.FC<StuzenAICopilotProps> = ({
     </>
   );
 };
+
