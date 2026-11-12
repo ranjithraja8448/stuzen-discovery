@@ -1,0 +1,140 @@
+import React from 'react';
+import { useTheme } from './ThemeContext';
+import { 
+  Compass, 
+  Sparkles, 
+  Database, 
+  Printer, 
+  Sun, 
+  Moon, 
+  Layers
+} from 'lucide-react';
+
+export type AppMode = 'landing' | 'discovery' | 'vault';
+
+interface NavbarProps {
+  currentMode: AppMode;
+  onSelectMode: (mode: AppMode) => void;
+  vaultCount: number;
+  discoveryCompletionPercent: number;
+  onOpenPrintPreview: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({
+  currentMode,
+  onSelectMode,
+  vaultCount,
+  discoveryCompletionPercent,
+  onOpenPrintPreview,
+}) => {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/90 dark:border-white/10 dark:bg-[#09090b]/85 backdrop-blur-xl transition-colors duration-200 no-print shadow-xs">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Brand Identity */}
+        <div 
+          onClick={() => onSelectMode('landing')}
+          className="flex items-center gap-3 cursor-pointer group select-none"
+        >
+          <div className="relative flex h-10 w-10 items-center justify-center rounded-xl overflow-hidden bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 group-hover:border-blue-500/50 transition-colors">
+            <img 
+              src="/brand/STUZEN_Icon_Only.png" 
+              alt="Stuzen Icon" 
+              className="h-7 w-7 object-contain"
+            />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-bold tracking-tight text-slate-900 dark:text-white text-base">
+                STUZEN
+              </span>
+              <span className="font-mono text-[11px] font-semibold text-blue-600 dark:text-cyan-400 uppercase tracking-widest px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 border border-blue-500/20">
+                TECHNOLOGIES
+              </span>
+            </div>
+            <p className="text-[10px] text-slate-500 font-medium tracking-wider uppercase hidden sm:block">
+              Learn. Build. Innovate.
+            </p>
+          </div>
+        </div>
+
+        {/* 3-Mode Segmented Switcher */}
+        <nav className="flex items-center gap-1 rounded-xl bg-slate-100 p-1 dark:bg-white/5 border border-slate-200 dark:border-white/10" aria-label="Application mode switcher">
+          <button
+            onClick={() => onSelectMode('landing')}
+            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+              currentMode === 'landing'
+                ? 'bg-white text-slate-900 shadow-sm dark:bg-blue-600 dark:text-white'
+                : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+            }`}
+          >
+            <Sparkles size={14} className={currentMode === 'landing' ? 'text-blue-600 dark:text-white' : ''} />
+            <span className="hidden sm:inline">Agency Home</span>
+            <span className="sm:hidden">Home</span>
+          </button>
+
+          <button
+            onClick={() => onSelectMode('discovery')}
+            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+              currentMode === 'discovery'
+                ? 'bg-white text-slate-900 shadow-sm dark:bg-blue-600 dark:text-white'
+                : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+            }`}
+          >
+            <Compass size={14} className={currentMode === 'discovery' ? 'text-blue-600 dark:text-white' : ''} />
+            <span>Discovery Portal</span>
+            {discoveryCompletionPercent > 0 && (
+              <span className="ml-1 rounded-full bg-blue-100 dark:bg-blue-900/60 px-1.5 py-0.2 text-[10px] font-mono font-bold text-blue-700 dark:text-cyan-300">
+                {discoveryCompletionPercent}%
+              </span>
+            )}
+          </button>
+
+          <button
+            onClick={() => onSelectMode('vault')}
+            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+              currentMode === 'vault'
+                ? 'bg-white text-slate-900 shadow-sm dark:bg-blue-600 dark:text-white'
+                : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+            }`}
+          >
+            <Database size={14} className={currentMode === 'vault' ? 'text-blue-600 dark:text-white' : ''} />
+            <span>Lead Vault</span>
+            <span className="rounded-full bg-slate-200 dark:bg-white/10 px-1.5 py-0.2 text-[10px] font-mono font-bold text-slate-700 dark:text-slate-300">
+              {vaultCount}
+            </span>
+          </button>
+        </nav>
+
+        {/* Action Controls: Print Dossier & Dark/Light Toggle */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={onOpenPrintPreview}
+            className="hidden md:inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-xs hover:bg-slate-50 dark:border-white/10 dark:bg-[#12141a] dark:text-slate-300 dark:hover:bg-white/5 transition-all cursor-pointer"
+            title="Export Official PDF / Print Discovery Dossier"
+          >
+            <Printer size={14} className="text-blue-500" />
+            <span>Official Dossier</span>
+          </button>
+
+          {/* Theme Toggle (Working flawlessly with HTML class sync) */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-xs hover:bg-slate-50 dark:border-white/10 dark:bg-[#12141a] dark:text-slate-300 dark:hover:bg-white/5 transition-all cursor-pointer"
+            aria-label="Toggle Dark and Light Mode"
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            {theme === 'dark' ? (
+              <Sun size={17} className="text-amber-400 hover:rotate-45 transition-transform" />
+            ) : (
+              <Moon size={17} className="text-slate-700 hover:-rotate-12 transition-transform" />
+            )}
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+};
