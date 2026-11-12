@@ -389,13 +389,13 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                   <ArrowRight size={15} />
                 </button>
                 <a
-                  href={`https://wa.me/917418572022?text=${encodeURIComponent(`Hi Ranjith, I saw the ${activeModalStudy.title} case study on your site. We would like to discuss a similar project!`)}`}
+                  href={`https://wa.me/917418572022?text=${encodeURIComponent(`Hi Stuzen Team, I reviewed the ${activeModalStudy.title} case study on your site. We would like to discuss our project scope!`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-5 py-3 text-xs font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer"
                 >
                   <MessageCircle size={15} className="text-emerald-500" />
-                  <span>Discuss With Ranjith</span>
+                  <span>Discuss With Architecture Desk</span>
                 </a>
               </div>
             </motion.div>

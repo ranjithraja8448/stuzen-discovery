@@ -231,13 +231,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
 
               <a
-                href="https://wa.me/917418572022?text=Hi%20Ranjith%2C%20I%20am%20exploring%20Stuzen%20Technologies."
+                href="https://wa.me/917418572022?text=Hi%20Stuzen%20Technologies%2C%20I%20am%20exploring%20your%20Digital%20Studio."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-600 p-3.5 text-xs font-bold text-white shadow cursor-pointer"
               >
                 <MessageCircle size={16} />
-                <span>Chat With Ranjith on WhatsApp</span>
+                <span>Chat With Stuzen on WhatsApp</span>
               </a>
 
               <div className="flex items-center justify-between pt-2 text-[11px] font-mono text-slate-500">

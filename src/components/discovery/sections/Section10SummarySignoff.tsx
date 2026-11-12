@@ -394,11 +394,11 @@ export const Section10SummarySignoff: React.FC<Section10Props> = ({
               Dispatch Discovery Brief Directly to Stuzen Engineering
             </h4>
             <p className="text-xs text-emerald-100 leading-relaxed">
-              Connect directly with Solutions Lead Ranjith on WhatsApp. Your 45-point scope and quotation requirements will be pre-formatted into the message.
+              Connect directly with Stuzen Engineering on WhatsApp. Your 45-point scope and quotation requirements will be pre-formatted into the message.
             </p>
             <a
               href={`https://wa.me/917418572022?text=${encodeURIComponent(
-                `*STUZEN TECHNOLOGIES Discovery Brief*\n*Ref ID:* ${fullFormData.id}\n*Client:* ${fullFormData.s01_client.contactName || 'Valued Client'} (${fullFormData.s01_client.businessName || 'Business'})\n*Phone:* ${fullFormData.s01_client.phoneWhatsapp || 'N/A'}\n*Email:* ${fullFormData.s01_client.email || 'N/A'}\n*Website Type:* ${fullFormData.s03_structure.websiteType}\n*Budget Tier:* ${fullFormData.s09_timeline.budgetTier}\n*North Star Metric:* ${data.mostImportantSuccessFactor || 'Sub-second speeds & high conversion.'}\n\nHi Ranjith, we have completed the discovery session on https://stuzen-discovery.vercel.app. Please review our project scope!`
+                `*STUZEN TECHNOLOGIES Discovery Brief*\n*Ref ID:* ${fullFormData.id}\n*Client:* ${fullFormData.s01_client.contactName || 'Valued Client'} (${fullFormData.s01_client.businessName || 'Business'})\n*Phone:* ${fullFormData.s01_client.phoneWhatsapp || 'N/A'}\n*Email:* ${fullFormData.s01_client.email || 'N/A'}\n*Website Type:* ${fullFormData.s03_structure.websiteType}\n*Budget Tier:* ${fullFormData.s09_timeline.budgetTier}\n*North Star Metric:* ${data.mostImportantSuccessFactor || 'Sub-second speeds & high conversion.'}\n\nHi Stuzen Team, we have completed the discovery session on https://stuzen-discovery.vercel.app. Please review our project scope!`
               )}`}
               target="_blank"
               rel="noopener noreferrer"

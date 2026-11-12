@@ -66,12 +66,12 @@ export const AboutView: React.FC<AboutViewProps> = ({
 
   const teamRoster = [
     {
-      name: 'Ranjith R.',
-      role: 'Head of Solutions Architecture & Digital Engineering',
+      name: 'Solutions Architecture Guild',
+      role: 'Enterprise Solutions Architecture & Systems Engineering',
       expertise: 'Distributed Systems, Cloud Architecture, Discovery Blueprinting',
       location: 'Bengaluru, India',
       quote: 'We don’t just write code; we architect systems that eliminate operational bottlenecks and drive verifiable enterprise growth.',
-      badge: 'Architecture Lead',
+      badge: 'Architecture Guild',
     },
     {
       name: 'Dev Senior Team',

@@ -112,39 +112,44 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
   return (
     <>
       {/* Mobile Top Header (Visible only on < lg) */}
-      <header className="lg:hidden sticky top-0 z-40 w-full border-b border-slate-200 dark:border-white/10 bg-white/95 dark:bg-[#07090e]/95 backdrop-blur-xl h-16 flex items-center justify-between px-4 shadow-sm no-print">
-        <div 
-          onClick={() => handleItemClick('landing')}
-          className="flex items-center gap-2.5 cursor-pointer select-none"
+      <header className="lg:hidden sticky top-0 z-40 w-full border-b border-slate-200 dark:border-white/10 bg-white/95 dark:bg-[#07090e]/95 backdrop-blur-xl h-16 flex items-center justify-between px-3 sm:px-4 shadow-sm no-print">
+        {/* Left STUZEN Logo button - Directly Toggles the Left Menu! */}
+        <button 
+          type="button"
+          onClick={() => setIsMobileOpen(!isMobileOpen)}
+          className="flex items-center gap-2.5 cursor-pointer select-none p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/10 transition-colors text-left"
+          title="Click to Open Studio Navigation Menu"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600/10 border border-blue-500/20 p-1.5">
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600/15 border border-blue-500/30 p-1.5 shadow-xs">
             <img 
               src="/brand/STUZEN_Icon_Only.png" 
               alt="Stuzen Icon" 
               className="h-full w-full object-contain"
             />
+            <span className="absolute -bottom-0.5 -right-0.5 flex h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-[#07090e]" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
               <span className="font-extrabold tracking-tight text-slate-900 dark:text-white text-sm">
                 STUZEN
               </span>
-              <span className="font-mono text-[9px] font-bold text-blue-600 dark:text-cyan-400 uppercase tracking-wider px-1.5 py-0.2 rounded bg-blue-50 dark:bg-blue-950/60 border border-blue-500/20">
-                STUDIO
+              <span className="font-mono text-[9px] font-bold text-blue-600 dark:text-cyan-400 uppercase tracking-wider px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/80 border border-blue-500/30 flex items-center gap-1">
+                <Menu size={10} />
+                <span>MENU</span>
               </span>
             </div>
-            <p className="text-[9px] text-slate-500 font-medium uppercase tracking-wider">
-              Learn. Build. Innovate.
+            <p className="text-[9px] text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider">
+              Tap logo to open dock 👈
             </p>
           </div>
-        </div>
+        </button>
 
         <div className="flex items-center gap-2">
           {/* Quick Discovery CTA on mobile */}
           {currentMode !== 'discovery' && (
             <button
               onClick={() => handleItemClick('discovery')}
-              className="inline-flex items-center gap-1 rounded-lg bg-blue-600 px-2.5 py-1.5 text-[11px] font-bold text-white shadow-xs"
+              className="inline-flex items-center gap-1 rounded-xl bg-blue-600 px-3 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-blue-500 active:scale-95 transition-all cursor-pointer"
             >
               <Compass size={13} />
               <span>Discovery</span>
@@ -155,19 +160,10 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white dark:border-white/10 dark:bg-[#12141a] text-slate-700 dark:text-slate-300"
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white dark:border-white/10 dark:bg-[#12141a] text-slate-700 dark:text-slate-300 shadow-xs cursor-pointer"
+            title="Toggle Dark/Light Mode"
           >
-            {theme === 'dark' ? <Sun size={14} className="text-amber-400" /> : <Moon size={14} className="text-slate-700" />}
-          </button>
-
-          {/* Hamburger trigger */}
-          <button
-            type="button"
-            onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-white"
-            aria-label="Open sidebar"
-          >
-            {isMobileOpen ? <X size={18} /> : <Menu size={18} />}
+            {theme === 'dark' ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-slate-700" />}
           </button>
         </div>
       </header>
@@ -412,7 +408,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
             <div className="space-y-2">
               {/* WhatsApp Solutions Hotline Card */}
               <a
-                href="https://wa.me/917418572022?text=Hi%20Ranjith%2C%20I%20am%20exploring%20Stuzen%20Technologies%20Discovery%20Suite."
+                href="https://wa.me/917418572022?text=Hi%20Stuzen%20Technologies%2C%20I%20am%20exploring%20your%20Digital%20Engineering%20Studio."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-between p-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all active:scale-95 cursor-pointer"
@@ -430,11 +426,11 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
               {/* Profile & Theme Toggle */}
               <div className="flex items-center justify-between pt-1 px-1">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-white font-mono text-[10px] font-bold">
-                    R
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-white font-mono text-[9px] font-bold">
+                    STZ
                   </div>
                   <span className="text-[11px] font-medium text-slate-600 dark:text-slate-400 truncate">
-                    Ranjith R.
+                    Solutions Architecture Desk
                   </span>
                 </div>
 

@@ -117,10 +117,10 @@ export const ContactView: React.FC<ContactViewProps> = ({
                 Direct WhatsApp Solutions Hotline
               </h3>
               <p className="text-xs text-emerald-100 leading-relaxed">
-                Connect directly with Solutions Lead Ranjith on WhatsApp. Perfect for rapid scoping questions, urgent sprint allocations, or quotation reviews.
+                Connect directly with Stuzen Solutions Desk on WhatsApp. Perfect for rapid scoping questions, urgent sprint allocations, or quotation reviews.
               </p>
               <a
-                href="https://wa.me/917418572022?text=Hi%20Ranjith%2C%20I%20would%20like%20to%20discuss%20a%20new%20project%20with%20Stuzen%20Technologies."
+                href="https://wa.me/917418572022?text=Hi%20Stuzen%20Technologies%2C%20I%20would%20like%20to%20discuss%20a%20new%20project%20with%20your%20team."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 inline-flex items-center gap-2.5 rounded-xl bg-white px-6 py-3.5 text-xs sm:text-sm font-bold text-emerald-800 shadow hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer"
@@ -214,17 +214,17 @@ export const ContactView: React.FC<ContactViewProps> = ({
                   Inquiry Dispatched Successfully!
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
-                  Thank you, <strong>{formData.name}</strong>. Solutions Lead Ranjith R. and our engineering architecture team will review your requirements for <strong>{formData.business || 'your business'}</strong> and respond within 2 hours.
+                  Thank you, <strong>{formData.name}</strong>. Our engineering architecture team will review your requirements for <strong>{formData.business || 'your business'}</strong> and respond within 2 hours.
                 </p>
                 <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
                   <a
-                    href={`https://wa.me/917418572022?text=${encodeURIComponent(`Hi Ranjith, I just submitted an inquiry on your website: ${formData.name} (${formData.business}). Let's discuss!`)}`}
+                    href={`https://wa.me/917418572022?text=${encodeURIComponent(`Hi Stuzen Team, I just submitted an inquiry on your website: ${formData.name} (${formData.business}). Let's discuss!`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-xs font-bold text-white shadow hover:bg-emerald-500 active:scale-95 transition-all cursor-pointer"
                   >
                     <MessageCircle size={16} />
-                    <span>Ping Ranjith on WhatsApp Now</span>
+                    <span>Ping Solutions Desk on WhatsApp Now</span>
                   </a>
                   <button
                     onClick={() => setSubmitted(false)}

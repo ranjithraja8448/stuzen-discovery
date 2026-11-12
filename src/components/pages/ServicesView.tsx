@@ -247,7 +247,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({
                     </button>
 
                     <a
-                      href={`https://wa.me/917418572022?text=${encodeURIComponent(`Hi Ranjith, I am interested in Stuzen's ${pillar.title}. Can we discuss the scope?`)}`}
+                      href={`https://wa.me/917418572022?text=${encodeURIComponent(`Hi Stuzen Team, I am interested in ${pillar.title}. Can we discuss the technical scope?`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-[#12141a] px-5 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 active:scale-95 transition-all cursor-pointer"
@@ -270,7 +270,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({
             Unsure Which Architecture Fits Your Horizon?
           </h3>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-            Our Solutions Architecture lead Ranjith R. conducts free 15-minute technical discovery consultations to help plan your roadmap.
+            Our Solutions Architecture Guild conducts free 15-minute technical discovery consultations to help plan your roadmap.
           </p>
           <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
             <button

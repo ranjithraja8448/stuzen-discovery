@@ -68,26 +68,26 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
           animate={{ opacity: 1, y: 0 }}
           className="flex justify-center"
         >
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-blue-500/30 bg-blue-500/10 px-4 py-1.5 text-xs font-mono font-medium text-blue-600 dark:text-cyan-300 backdrop-blur-md shadow-glow-sm">
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 backdrop-blur-md shadow-lg shadow-cyan-500/10">
             <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span>STUZEN EXECUTIVE DISCOVERY ENGINE • ENTERPRISE READY</span>
+            <span>● STUZEN ARCHITECTURAL STUDIO • THE SYSTEM FOR BESPOKE DIGITAL DOMINANCE</span>
           </div>
         </motion.div>
 
         {/* Hero Section */}
         <div className="mt-8 text-center max-w-4xl mx-auto">
-          {/* Main Logo Display (Adaptive to Light/Dark Mode) */}
+          {/* Main Logo Display with Radiant Cyber Glow */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="flex justify-center mb-7"
+            className="flex justify-center mb-6"
           >
-            <div className="px-6 py-3 sm:px-8 sm:py-4 rounded-2xl bg-white/90 dark:bg-white/5 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xl shadow-slate-200/60 dark:shadow-none inline-flex items-center justify-center transition-all duration-300">
+            <div className="px-6 py-3.5 sm:px-8 sm:py-4 rounded-3xl bg-white/90 dark:bg-[#0c0e14]/90 backdrop-blur-xl border border-slate-200 dark:border-cyan-500/30 shadow-2xl shadow-blue-500/15 inline-flex items-center justify-center transition-all duration-300">
               <img
                 src={theme === 'dark' ? '/brand/STUZEN_Logo_White.png' : '/brand/STUZEN_Logo_Black.png'}
                 alt="STUZEN TECHNOLOGIES"
-                className="h-14 sm:h-18 md:h-20 w-auto object-contain max-w-[260px] sm:max-w-[340px] transition-all duration-300"
+                className="h-12 sm:h-16 md:h-18 w-auto object-contain max-w-[240px] sm:max-w-[320px] transition-all duration-300"
               />
             </div>
           </motion.div>
@@ -96,18 +96,30 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.08]"
+            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-950 dark:text-white leading-[1.08]"
           >
-            Learn. Build. <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-500 bg-clip-text text-transparent">Innovate.</span>
+            Architecting{' '}
+            <span className="bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-500 bg-clip-text text-transparent">
+              Digital Dominance.
+            </span>
           </motion.h1>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.5 }}
+            className="mt-3 font-mono text-xs sm:text-sm font-bold tracking-widest text-blue-600 dark:text-cyan-400 uppercase"
+          >
+            Learn. Build. Innovate.
+          </motion.div>
 
           <motion.p 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="mt-6 text-base sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed"
+            className="mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed"
           >
-            The premium software & digital engineering studio for high-growth enterprises. We translate ambitious business objectives into bespoke web platforms, custom applications, and automated revenue engines.
+            The premier software & digital engineering studio for high-growth enterprises. We engineer sub-second web platforms, bespoke enterprise SaaS software, and autonomous WhatsApp revenue bots.
           </motion.p>
 
           {/* Primary Action Buttons */}
@@ -115,13 +127,13 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-lg mx-auto"
+            className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-xl mx-auto"
           >
             <button
               onClick={() => onStartDiscovery('s01')}
-              className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-blue-600 px-6 py-3.5 sm:px-7 sm:py-4 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 active:scale-95 transition-all cursor-pointer group w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 px-7 py-4 text-xs sm:text-sm font-bold text-white shadow-xl shadow-blue-500/25 hover:opacity-95 active:scale-95 transition-all cursor-pointer group w-full sm:w-auto"
             >
-              <span>Start Client Requirements Discovery</span>
+              <span>🚀 Launch 45-Point Discovery Engine</span>
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </button>
 
@@ -130,19 +142,37 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
                 const el = document.getElementById('quick-scope-estimator');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-white/5 px-5 py-3.5 sm:px-6 sm:py-4 text-xs sm:text-sm font-semibold text-slate-800 dark:text-white backdrop-blur-md hover:bg-slate-100 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer shadow-xs w-full sm:w-auto"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 dark:border-white/15 bg-white dark:bg-white/5 px-6 py-4 text-xs sm:text-sm font-bold text-slate-800 dark:text-white backdrop-blur-md hover:bg-slate-100 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer shadow-xs w-full sm:w-auto"
             >
-              <Calculator size={15} className="text-blue-600 dark:text-cyan-400" />
-              <span>5-Sec Scope Estimator ⚡</span>
+              <Calculator size={16} className="text-blue-600 dark:text-cyan-400" />
+              <span>⚡ 5-Sec Scope Estimator</span>
             </button>
+          </motion.div>
+
+          {/* WhatsApp Direct Banner under Hero */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.35 }}
+            className="mt-4 flex items-center justify-center"
+          >
+            <a
+              href="https://wa.me/917418572022?text=Hi%20Stuzen%20Technologies%2C%20I%20am%20interested%20in%20an%20instant%20project%20consultation."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+            >
+              <MessageCircle size={15} />
+              <span>WhatsApp Solutions Desk: +91 74185 72022 (Fast Response)</span>
+            </a>
           </motion.div>
 
           {/* Enterprise Performance & Trust Metrics Bar */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.5 }}
-            className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto"
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto"
           >
             {[
               { val: '45-Point', label: 'Discovery Audit Rigor', sub: 'Zero Scope Creep' },
@@ -152,7 +182,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             ].map((stat, i) => (
               <div
                 key={i}
-                className="p-3.5 rounded-2xl bg-white/70 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 backdrop-blur-md shadow-xs text-center"
+                className="p-3.5 rounded-2xl bg-white/80 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 backdrop-blur-md shadow-xs text-center"
               >
                 <div className="font-mono text-xl sm:text-2xl font-extrabold text-blue-600 dark:text-cyan-400">
                   {stat.val}
@@ -1127,7 +1157,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
                 Need an Instant Architectural Consultation?
               </h3>
               <p className="text-xs sm:text-sm text-emerald-100 leading-relaxed">
-                Connect directly with Stuzen Solutions Lead Ranjith on WhatsApp. Discuss your project scope, receive quotation blueprints, or schedule a 15-minute technical review.
+                Connect directly with Stuzen Solutions Architecture Desk on WhatsApp. Discuss your project scope, receive quotation blueprints, or schedule a 15-minute technical review.
               </p>
             </div>
 

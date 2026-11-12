@@ -233,7 +233,7 @@ export const OfficialPrintDossier: React.FC<OfficialPrintDossierProps> = ({
             </div>
             <div>
               <span className="text-slate-400 block text-[9px] uppercase font-bold">STUZEN SOLUTIONS LEAD</span>
-              <span className="font-bold text-slate-900 truncate block">{formData.meeting.stuzenRepresentative || 'Ranjith R.'}</span>
+              <span className="font-bold text-slate-900 truncate block">{formData.meeting.stuzenRepresentative || 'Stuzen Solutions Architect'}</span>
             </div>
             <div>
               <span className="text-slate-400 block text-[9px] uppercase font-bold">CLIENT ATTENDEES</span>
@@ -580,7 +580,7 @@ export const OfficialPrintDossier: React.FC<OfficialPrintDossierProps> = ({
                 </span>
                 <div className="border-b border-slate-300 pb-2 mb-2">
                   <p className="font-bold text-sm text-slate-950 font-mono">
-                    {formData.s10_final.signOff.stuzenRepName || formData.meeting.stuzenRepresentative || 'Ranjith R.'}
+                    {formData.s10_final.signOff.stuzenRepName || formData.meeting.stuzenRepresentative || 'Stuzen Solutions Architect'}
                   </p>
                   <p className="text-[11px] text-slate-600">
                     Principal Solutions Architect & Engineering Director

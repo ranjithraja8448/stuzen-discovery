@@ -29,7 +29,7 @@ const createBlankFormData = (): DiscoveryFormData => ({
   meeting: {
     interviewDate: new Date().toISOString().split('T')[0],
     meetingMode: 'Video call',
-    stuzenRepresentative: 'Ranjith R. (Head of Solutions Architecture)',
+    stuzenRepresentative: 'Stuzen Solutions Architecture Guild',
     clientAttendees: '',
     meetingLocationOrLink: '',
   },
@@ -141,7 +141,7 @@ const createBlankFormData = (): DiscoveryFormData => ({
       clientRepName: '',
       clientRepTitle: '',
       clientSignDate: new Date().toISOString().split('T')[0],
-      stuzenRepName: 'Ranjith R.',
+      stuzenRepName: 'Stuzen Lead Solutions Architect',
       stuzenSignDate: new Date().toISOString().split('T')[0],
       isAgreed: false,
     },
