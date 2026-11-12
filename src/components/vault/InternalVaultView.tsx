@@ -18,7 +18,9 @@ import {
   ArrowRight, 
   ShieldCheck, 
   AlertTriangle,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Lock,
+  LogOut
 } from 'lucide-react';
 import { analyzeScope } from '../../utils/scopeAnalyzer';
 
@@ -28,6 +30,7 @@ interface InternalVaultViewProps {
   onDeleteRecord: (id: string) => void;
   onOpenPrintPreviewForRecord: (record: DiscoveryFormData) => void;
   onStartNewDiscovery: () => void;
+  onLockVault: () => void;
 }
 
 export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
@@ -36,6 +39,7 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
   onDeleteRecord,
   onOpenPrintPreviewForRecord,
   onStartNewDiscovery,
+  onLockVault,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('All');
@@ -166,16 +170,16 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
             </p>
           </div>
 
-          {/* Action Buttons: Export CSV + New Discovery */}
+          {/* Action Buttons: Export CSV + New Discovery + Lock Vault */}
           <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
             <button
               type="button"
               onClick={exportVaultToCsv}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-[#12141a] px-4 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5 active:scale-95 transition-all cursor-pointer shadow-xs"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-[#12141a] px-3.5 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5 active:scale-95 transition-all cursor-pointer shadow-xs"
               title="Export all vault leads as an Excel-compatible CSV spreadsheet"
             >
               <FileSpreadsheet size={15} className="text-emerald-500" />
-              <span>📥 Export All to CSV</span>
+              <span>📥 Export CSV</span>
             </button>
 
             <button
@@ -185,6 +189,16 @@ export const InternalVaultView: React.FC<InternalVaultViewProps> = ({
             >
               <Sparkles size={15} />
               <span>+ New Session</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={onLockVault}
+              className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3.5 py-2.5 text-xs font-semibold text-amber-600 dark:text-amber-400 hover:bg-amber-500/20 active:scale-95 transition-all cursor-pointer"
+              title="Lock and protect client vault"
+            >
+              <Lock size={14} />
+              <span>Lock Vault</span>
             </button>
           </div>
         </div>

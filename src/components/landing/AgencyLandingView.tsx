@@ -26,7 +26,8 @@ import { AppMode } from '../layout/Navbar';
 
 interface AgencyLandingViewProps {
   onStartDiscovery: (targetSection?: string) => void;
-  onOpenVault: () => void;
+  onOpenVault?: () => void;
+  onOpenStaffVault?: () => void;
   vaultCount: number;
   onApplyQuickEstimate?: (config: {
     websiteType: string;
@@ -38,6 +39,7 @@ interface AgencyLandingViewProps {
 export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
   onStartDiscovery,
   onOpenVault,
+  onOpenStaffVault,
   vaultCount,
   onApplyQuickEstimate,
 }) => {
@@ -109,25 +111,25 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
+            className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-lg mx-auto"
           >
             <button
               onClick={() => onStartDiscovery('s01')}
-              className="inline-flex items-center gap-2.5 rounded-xl bg-blue-600 px-7 py-4 text-sm font-semibold text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 active:scale-95 transition-all cursor-pointer group"
+              className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-blue-600 px-6 py-3.5 sm:px-7 sm:py-4 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-blue-600/30 hover:bg-blue-500 active:scale-95 transition-all cursor-pointer group w-full sm:w-auto"
             >
               <span>Start Client Requirements Discovery</span>
-              <ArrowRight size={17} className="transition-transform group-hover:translate-x-1" />
+              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </button>
 
             <button
-              onClick={onOpenVault}
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-white/5 px-6 py-4 text-sm font-semibold text-slate-800 dark:text-white backdrop-blur-md hover:bg-slate-100 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer shadow-xs"
+              onClick={() => {
+                const el = document.getElementById('quick-scope-estimator');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-white/5 px-5 py-3.5 sm:px-6 sm:py-4 text-xs sm:text-sm font-semibold text-slate-800 dark:text-white backdrop-blur-md hover:bg-slate-100 dark:hover:bg-white/10 active:scale-95 transition-all cursor-pointer shadow-xs w-full sm:w-auto"
             >
-              <Database size={16} className="text-blue-600 dark:text-cyan-400" />
-              <span>Open Internal Lead Vault</span>
-              <span className="font-mono text-xs rounded-full bg-blue-500/20 px-2 py-0.5 text-blue-600 dark:text-blue-400 border border-blue-500/30">
-                {vaultCount} Records
-              </span>
+              <Calculator size={15} className="text-blue-600 dark:text-cyan-400" />
+              <span>5-Sec Scope Estimator ⚡</span>
             </button>
           </motion.div>
 
@@ -157,10 +159,41 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
                 </div>
               </div>
 
-              {/* 3-Pane Preview Graphic */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-0 text-left text-xs divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-white/10 bg-slate-50/50 dark:bg-[#0c0e14]">
+              {/* Mobile-Native Sleek Teaser Card (< md) */}
+              <div className="md:hidden p-4 sm:p-5 space-y-3 bg-white dark:bg-[#0c0e14] text-left">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-white/10">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="font-mono text-[10px] font-bold text-blue-600 dark:text-cyan-400 uppercase">
+                      Executive Discovery Engine
+                    </span>
+                  </div>
+                  <span className="font-mono text-[9px] bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded font-bold">
+                    PURE INR
+                  </span>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 text-white shadow-md">
+                  <span className="text-[10px] opacity-80 uppercase block font-mono">10 Steps • 45 Questions</span>
+                  <div className="text-base font-bold font-mono mt-0.5">₹35,000 – ₹3.5+ Lakhs</div>
+                  <p className="text-[10px] opacity-90 mt-1">
+                    Live dynamic quotation, sitemap, WhatsApp Cloud API & legal PDF agreement
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => onStartDiscovery('s01')}
+                  className="w-full py-3 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-950 font-bold text-xs shadow-sm hover:opacity-90 cursor-pointer text-center"
+                >
+                  Start Client Requirements Audit →
+                </button>
+              </div>
+
+              {/* Desktop 3-Pane Preview Graphic (>= md) */}
+              <div className="hidden md:grid grid-cols-12 gap-0 text-left text-xs divide-x divide-slate-200 dark:divide-white/10 bg-slate-50/50 dark:bg-[#0c0e14]">
                 {/* Left Mini Stepper */}
-                <div className="md:col-span-3 p-4 space-y-2 bg-slate-100/50 dark:bg-white/2 hidden sm:block">
+                <div className="col-span-3 p-4 space-y-2 bg-slate-100/50 dark:bg-white/2">
                   <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-2">
                     <span>10 SECTIONS</span>
                     <span className="text-blue-600 dark:text-cyan-400 font-bold">100% COMPLETE</span>
@@ -190,7 +223,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
                 </div>
 
                 {/* Center Mini Canvas */}
-                <div className="md:col-span-6 p-5 space-y-3.5 bg-white dark:bg-[#0c0e14]">
+                <div className="col-span-6 p-5 space-y-3.5 bg-white dark:bg-[#0c0e14]">
                   <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/5 pb-2">
                     <div>
                       <span className="font-mono text-[10px] font-bold text-blue-600 dark:text-cyan-400">
@@ -234,7 +267,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
                 </div>
 
                 {/* Right Mini Live Blueprint */}
-                <div className="md:col-span-3 p-4 space-y-3 bg-slate-100/50 dark:bg-white/2">
+                <div className="col-span-3 p-4 space-y-3 bg-slate-100/50 dark:bg-white/2">
                   <div className="text-[10px] font-mono text-slate-400 uppercase font-bold">
                     Realtime Scope Analysis
                   </div>
@@ -580,7 +613,7 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
           };
 
           return (
-            <div className="mt-24 rounded-3xl border border-blue-500/30 bg-gradient-to-b from-white to-slate-50 dark:from-[#0d0f15] dark:to-[#07090d] p-6 sm:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+            <div id="quick-scope-estimator" className="mt-20 sm:mt-24 rounded-3xl border border-blue-500/30 bg-gradient-to-b from-white to-slate-50 dark:from-[#0d0f15] dark:to-[#07090d] p-4 sm:p-10 shadow-2xl relative overflow-hidden backdrop-blur-xl">
               {/* Architectural accent glow */}
               <div className="absolute top-0 right-0 h-64 w-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -804,11 +837,20 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
           </div>
 
           <div className="mt-10 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-ping" />
               <span className="text-xs text-slate-600 dark:text-slate-300 font-medium">
                 Solutions Architecture Team Currently Accepting Discovery Bookings
               </span>
+              {onOpenStaffVault && (
+                <button
+                  type="button"
+                  onClick={onOpenStaffVault}
+                  className="text-[11px] font-mono text-slate-400 hover:text-amber-500 transition-colors cursor-pointer"
+                >
+                  • Staff Vault Access 🔒
+                </button>
+              )}
             </div>
             <button
               onClick={() => onStartDiscovery('s01')}

@@ -4,6 +4,7 @@ import { Footer } from './components/layout/Footer';
 import { AgencyLandingView } from './components/landing/AgencyLandingView';
 import { DiscoveryEngine } from './components/discovery/DiscoveryEngine';
 import { InternalVaultView } from './components/vault/InternalVaultView';
+import { StaffPinModal } from './components/vault/StaffPinModal';
 import { OfficialPrintDossier } from './components/print/OfficialPrintDossier';
 import { StuzenAICopilot } from './components/ai/StuzenAICopilot';
 import { DiscoveryFormData } from './types/discovery';
@@ -149,6 +150,8 @@ export const App: React.FC = () => {
   const [printModalRecord, setPrintModalRecord] = useState<DiscoveryFormData | null>(null);
   const [targetDiscoverySection, setTargetDiscoverySection] = useState<string>('s01');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isStaffUnlocked, setIsStaffUnlocked] = useState<boolean>(false);
+  const [isStaffPinModalOpen, setIsStaffPinModalOpen] = useState<boolean>(false);
 
   // Initialize vault records from localStorage, or pre-seed with 2 realistic records
   const [vaultRecords, setVaultRecords] = useState<DiscoveryFormData[]>(() => {
@@ -344,6 +347,31 @@ export const App: React.FC = () => {
     setToastMessage('⚡ Scope Calculator estimate applied to your Discovery session!');
   };
 
+  // Staff Lead Vault PIN security handlers
+  const handleOpenStaffVault = () => {
+    if (isStaffUnlocked) {
+      setCurrentMode('vault');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      setIsStaffPinModalOpen(true);
+    }
+  };
+
+  const handleStaffUnlockSuccess = () => {
+    setIsStaffUnlocked(true);
+    setIsStaffPinModalOpen(false);
+    setCurrentMode('vault');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setToastMessage('🔓 Staff Lead Vault unlocked successfully!');
+  };
+
+  const handleLockVault = () => {
+    setIsStaffUnlocked(false);
+    setCurrentMode('landing');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setToastMessage('🔒 Staff Lead Vault locked & secured.');
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] dark:bg-[#09090b] text-slate-900 dark:text-slate-100 transition-colors duration-200">
       {/* Toast Notification Container */}
@@ -370,6 +398,7 @@ export const App: React.FC = () => {
           vaultCount={vaultRecords.length}
           discoveryCompletionPercent={scopeAnalysis.overallPercentage}
           onOpenPrintPreview={() => setPrintModalRecord(formData)}
+          onOpenStaffVault={handleOpenStaffVault}
         />
 
         {/* Mode Viewports */}
@@ -377,10 +406,7 @@ export const App: React.FC = () => {
           {currentMode === 'landing' && (
             <AgencyLandingView
               onStartDiscovery={handleStartDiscoveryWithSection}
-              onOpenVault={() => {
-                setCurrentMode('vault');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
+              onOpenStaffVault={handleOpenStaffVault}
               vaultCount={vaultRecords.length}
               onApplyQuickEstimate={handleApplyQuickEstimate}
             />
@@ -414,6 +440,7 @@ export const App: React.FC = () => {
                 setCurrentMode('discovery');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
+              onLockVault={handleLockVault}
             />
           )}
         </div>
@@ -421,6 +448,13 @@ export const App: React.FC = () => {
         {/* Universal Footer */}
         <Footer />
       </div>
+
+      {/* Staff Security PIN Modal for Confidential Lead Vault Access */}
+      <StaffPinModal
+        isOpen={isStaffPinModalOpen}
+        onClose={() => setIsStaffPinModalOpen(false)}
+        onUnlockSuccess={handleStaffUnlockSuccess}
+      />
 
       {/* Official Document Print Dossier Modal (When active, prints ONLY this element) */}
       {printModalRecord && (

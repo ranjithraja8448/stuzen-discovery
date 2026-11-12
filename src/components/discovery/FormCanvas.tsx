@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { DiscoveryFormData } from '../../types/discovery';
 import { ScopeAnalysis } from '../../utils/scopeAnalyzer';
 import { SECTIONS } from '../../data/discoveryQuestions';
@@ -12,7 +12,7 @@ import { Section07TechnicalOperational } from './sections/Section07TechnicalOper
 import { Section08SEOAnalytics } from './sections/Section08SEOAnalytics';
 import { Section09TimelineBudget } from './sections/Section09TimelineBudget';
 import { Section10SummarySignoff } from './sections/Section10SummarySignoff';
-import { ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface FormCanvasProps {
   formData: DiscoveryFormData;
@@ -31,10 +31,17 @@ export const FormCanvas: React.FC<FormCanvasProps> = ({
   onAutoGenerateSummary,
   scopeAnalysis,
 }) => {
+  const [validationError, setValidationError] = useState<string | null>(null);
+
   const currentIndex = SECTIONS.findIndex(s => s.id === activeSection);
   const currentSec = SECTIONS[currentIndex] || SECTIONS[0];
   const prevSection = currentIndex > 0 ? SECTIONS[currentIndex - 1] : null;
   const nextSection = currentIndex < SECTIONS.length - 1 ? SECTIONS[currentIndex + 1] : null;
+
+  // Clear validation error when section switches
+  useEffect(() => {
+    setValidationError(null);
+  }, [activeSection]);
 
   const scrollToCanvasTop = () => {
     const el = document.getElementById('discovery-form-canvas');
@@ -45,7 +52,43 @@ export const FormCanvas: React.FC<FormCanvasProps> = ({
     }
   };
 
+  const validateCurrentSection = (): { isValid: boolean; message?: string } => {
+    if (activeSection === 's01') {
+      const { businessName, contactName, industry, phoneWhatsapp, email } = formData.s01_client;
+      if (!businessName.trim()) {
+        return { isValid: false, message: 'Please enter your Official Business / Brand Name (Q02).' };
+      }
+      if (!contactName.trim()) {
+        return { isValid: false, message: 'Please enter Contact Person Name (Q01).' };
+      }
+      if (!industry.trim()) {
+        return { isValid: false, message: 'Please specify your Industry or Sector (Q03).' };
+      }
+      if (!phoneWhatsapp.trim() && !email.trim()) {
+        return { isValid: false, message: 'Please provide at least a Phone/WhatsApp number or Email (Q04).' };
+      }
+    } else if (activeSection === 's02') {
+      const { purposes } = formData.s02_goals;
+      if (purposes.length === 0) {
+        return { isValid: false, message: 'Please choose at least 1 Primary Commercial Purpose (Q08).' };
+      }
+    } else if (activeSection === 's03') {
+      const { requiredPages } = formData.s03_structure;
+      if (requiredPages.length === 0) {
+        return { isValid: false, message: 'Please select at least 1 page for your sitemap manifest (Q13).' };
+      }
+    }
+    return { isValid: true };
+  };
+
   const handleNext = () => {
+    const check = validateCurrentSection();
+    if (!check.isValid) {
+      setValidationError(check.message || 'Please fill in mandatory fields before advancing.');
+      scrollToCanvasTop();
+      return;
+    }
+    setValidationError(null);
     if (nextSection) {
       onSelectSection(nextSection.id);
       scrollToCanvasTop();
@@ -53,6 +96,7 @@ export const FormCanvas: React.FC<FormCanvasProps> = ({
   };
 
   const handlePrev = () => {
+    setValidationError(null);
     if (prevSection) {
       onSelectSection(prevSection.id);
       scrollToCanvasTop();
@@ -149,42 +193,55 @@ export const FormCanvas: React.FC<FormCanvasProps> = ({
         )}
 
         {/* Stepper Navigation Footer */}
-        <div className="mt-14 pt-8 border-t border-slate-200 dark:border-white/10 flex flex-wrap items-center justify-between gap-4">
-          {prevSection ? (
-            <button
-              type="button"
-              onClick={handlePrev}
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-white/15 bg-white dark:bg-[#12141a] px-5 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5 cursor-pointer shadow-sm transition-all"
-            >
-              <ChevronLeft size={16} />
-              <span>Previous: {prevSection.number} {prevSection.title}</span>
-            </button>
-          ) : (
-            <div />
+        <div className="mt-12 pt-6 border-t border-slate-200 dark:border-white/10 space-y-4">
+          {/* Mandatory Validation Error Alert */}
+          {validationError && (
+            <div className="p-4 rounded-xl bg-red-500/10 border-2 border-red-500/30 text-red-600 dark:text-red-400 text-xs flex items-center gap-3 animate-shake">
+              <AlertCircle size={20} className="shrink-0 text-red-500" />
+              <div>
+                <span className="font-bold block uppercase tracking-wide">Mandatory Field Required</span>
+                <span className="text-[11px] opacity-90">{validationError}</span>
+              </div>
+            </div>
           )}
 
-          {nextSection ? (
-            <button
-              type="button"
-              onClick={handleNext}
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-2.5 text-xs font-semibold text-white hover:bg-blue-500 shadow-md shadow-blue-500/25 active:scale-95 transition-all cursor-pointer"
-            >
-              <span>Next: {nextSection.number} {nextSection.title}</span>
-              <ChevronRight size={16} />
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => {
-                onSelectSection('s01');
-                scrollToCanvasTop();
-              }}
-              className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-6 py-2.5 text-xs font-semibold text-white hover:bg-emerald-500 shadow-md cursor-pointer transition-all"
-            >
-              <CheckCircle2 size={16} />
-              <span>Review From Section 01</span>
-            </button>
-          )}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            {prevSection ? (
+              <button
+                type="button"
+                onClick={handlePrev}
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/15 bg-white dark:bg-[#12141a] px-5 py-3 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5 cursor-pointer shadow-sm transition-all"
+              >
+                <ChevronLeft size={16} />
+                <span>Previous: {prevSection.number} {prevSection.title}</span>
+              </button>
+            ) : (
+              <div />
+            )}
+
+            {nextSection ? (
+              <button
+                type="button"
+                onClick={handleNext}
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-7 py-3 text-xs font-semibold text-white hover:bg-blue-500 shadow-md shadow-blue-500/25 active:scale-95 transition-all cursor-pointer"
+              >
+                <span>Next: {nextSection.number} {nextSection.title}</span>
+                <ChevronRight size={16} />
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  onSelectSection('s01');
+                  scrollToCanvasTop();
+                }}
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 py-3 text-xs font-semibold text-white hover:bg-emerald-500 shadow-md cursor-pointer transition-all"
+              >
+                <CheckCircle2 size={16} />
+                <span>Review From Section 01</span>
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </main>

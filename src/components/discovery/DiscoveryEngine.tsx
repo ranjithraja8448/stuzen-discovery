@@ -43,6 +43,20 @@ export const DiscoveryEngine: React.FC<DiscoveryEngineProps> = ({
     }
   }, [initialSection]);
 
+  // Prevent jumping forward past Step 01 without basic client details
+  const handleSelectSectionWithValidation = (targetId: string) => {
+    if (activeSection === 's01' && targetId !== 's01') {
+      const { businessName, contactName, phoneWhatsapp, email } = formData.s01_client;
+      if (!businessName.trim() || !contactName.trim() || (!phoneWhatsapp.trim() && !email.trim())) {
+        if (onNotifyToast) {
+          onNotifyToast('⚠️ Please enter mandatory client details in Step 01 before navigating forward.');
+        }
+        return;
+      }
+    }
+    setActiveSection(targetId);
+  };
+
   return (
     <div className="flex flex-col min-h-[calc(100vh-4rem)] bg-slate-100/70 dark:bg-[#09090b] text-slate-900 dark:text-slate-100 transition-colors">
       {/* Top Action Bar */}
@@ -62,7 +76,7 @@ export const DiscoveryEngine: React.FC<DiscoveryEngineProps> = ({
         {/* Left Pane: 10-Section Stepper */}
         <LeftSidebarNav
           activeSection={activeSection}
-          onSelectSection={setActiveSection}
+          onSelectSection={handleSelectSectionWithValidation}
           scopeAnalysis={scopeAnalysis}
         />
 
@@ -70,7 +84,7 @@ export const DiscoveryEngine: React.FC<DiscoveryEngineProps> = ({
         <FormCanvas
           formData={formData}
           activeSection={activeSection}
-          onSelectSection={setActiveSection}
+          onSelectSection={handleSelectSectionWithValidation}
           onUpdateSection={onUpdateSection}
           onAutoGenerateSummary={onAutoGenerateSummary}
           scopeAnalysis={scopeAnalysis}
