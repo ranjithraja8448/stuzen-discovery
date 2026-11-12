@@ -59,13 +59,13 @@ export const AgencyLandingView: React.FC<AgencyLandingViewProps> = ({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="flex justify-center mb-6"
+            className="flex justify-center mb-7"
           >
-            <div className="p-3.5 rounded-2xl bg-white dark:bg-white/5 backdrop-blur-lg border border-slate-200 dark:border-white/10 shadow-xl">
+            <div className="px-6 py-3 sm:px-8 sm:py-4 rounded-2xl bg-white/90 dark:bg-white/5 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 shadow-xl shadow-slate-200/60 dark:shadow-none inline-flex items-center justify-center transition-all duration-300">
               <img
-                src={theme === 'dark' ? '/brand/STUZEN_Logo_White.png' : '/brand/STUZEN_Logo_Transparent.png'}
+                src={theme === 'dark' ? '/brand/STUZEN_Logo_White.png' : '/brand/STUZEN_Logo_Black.png'}
                 alt="STUZEN TECHNOLOGIES"
-                className="h-14 sm:h-16 object-contain"
+                className="h-14 sm:h-18 md:h-20 w-auto object-contain max-w-[260px] sm:max-w-[340px] transition-all duration-300"
               />
             </div>
           </motion.div>

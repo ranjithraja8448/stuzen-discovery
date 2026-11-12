@@ -5,6 +5,7 @@ import { AgencyLandingView } from './components/landing/AgencyLandingView';
 import { DiscoveryEngine } from './components/discovery/DiscoveryEngine';
 import { InternalVaultView } from './components/vault/InternalVaultView';
 import { OfficialPrintDossier } from './components/print/OfficialPrintDossier';
+import { StuzenAICopilot } from './components/ai/StuzenAICopilot';
 import { DiscoveryFormData } from './types/discovery';
 import { DEMO_CLIENT_DATA, INITIAL_VAULT_RECORDS } from './data/demoClients';
 import { analyzeScope } from './utils/scopeAnalyzer';
@@ -375,6 +376,14 @@ export const App: React.FC = () => {
           onClose={() => setPrintModalRecord(null)}
         />
       )}
+
+      {/* Interactive Stuzen AI Solutions Copilot (Instant Scope, Pricing & Discovery Assistant) */}
+      <StuzenAICopilot
+        onNavigateMode={setCurrentMode}
+        onAutoFillDemo={handleAutoFillDemo}
+        onOpenPrint={() => setPrintModalRecord(formData)}
+        onStartDiscoverySection={handleStartDiscoveryWithSection}
+      />
     </div>
   );
 };
