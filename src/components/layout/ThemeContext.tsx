@@ -14,13 +14,13 @@ const ThemeContext = createContext<ThemeContextType>({
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(() => {
-    const saved = localStorage.getItem('stuzen_theme_v3');
+    const saved = localStorage.getItem('stuzen_theme_v4');
     if (saved === 'light' || saved === 'dark') return saved;
-    return 'dark'; // Default to Obsidian Dark Mode for high-tech aesthetic
+    return 'light'; // Default to Crisp Light Mode as requested
   });
 
   useEffect(() => {
-    localStorage.setItem('stuzen_theme_v3', theme);
+    localStorage.setItem('stuzen_theme_v4', theme);
     const root = document.documentElement;
     if (theme === 'dark') {
       root.classList.add('dark');

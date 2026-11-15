@@ -13,7 +13,6 @@ import { Section08SEOAnalytics } from './sections/Section08SEOAnalytics';
 import { Section09TimelineBudget } from './sections/Section09TimelineBudget';
 import { Section10SummarySignoff } from './sections/Section10SummarySignoff';
 import { ChevronLeft, ChevronRight, CheckCircle2, AlertCircle, FileText, Sparkles } from 'lucide-react';
-import confetti from 'canvas-confetti';
 
 interface FormCanvasProps {
   formData: DiscoveryFormData;
@@ -145,7 +144,7 @@ export const FormCanvas: React.FC<FormCanvasProps> = ({
     <main
       id="discovery-form-canvas"
       onKeyDown={handleKeyDown}
-      className="flex-1 min-w-0 pt-8 sm:pt-10 px-4 sm:px-8 pb-28 max-w-4xl mx-auto overflow-y-auto scroll-smooth"
+      className="w-full focus:outline-none"
     >
       {/* Active Section Content Switcher */}
       <div>
@@ -287,20 +286,14 @@ export const FormCanvas: React.FC<FormCanvasProps> = ({
                     if (onSaveToVault) {
                       onSaveToVault();
                     }
-                    confetti({
-                      particleCount: 75,
-                      spread: 70,
-                      origin: { y: 0.6 },
-                      colors: ['#2563EB', '#06B6D4', '#10B981'],
-                    });
                     if (onOpenPrint) {
                       onOpenPrint();
                     }
                   }}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-cyan-600 to-emerald-600 px-6 py-3 text-xs font-bold text-white shadow-lg shadow-blue-500/25 hover:opacity-95 active:scale-95 transition-all cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 text-xs font-bold text-white shadow-md shadow-blue-500/20 hover:bg-blue-500 active:scale-95 transition-all cursor-pointer"
                 >
                   <Sparkles size={15} />
-                  <span>🚀 Complete Discovery & View Official PDF Dossier</span>
+                  <span>Complete Discovery & View Official Dossier</span>
                 </button>
               </div>
             )}

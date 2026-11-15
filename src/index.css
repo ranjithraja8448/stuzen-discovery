@@ -4,29 +4,35 @@
 
 @layer base {
   :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-card: #ffffff;
+    --border-subtle: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent-blue: #2563eb;
+    --accent-blue-hover: #1d4ed8;
+  }
+
+  .dark {
     --bg-primary: #09090b;
     --bg-secondary: #0f1117;
-    --bg-card: rgba(18, 20, 26, 0.7);
+    --bg-card: #12141a;
     --border-subtle: rgba(255, 255, 255, 0.08);
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
-    --accent-blue: #2563eb;
-    --accent-cyan: #06b6d4;
+    --accent-blue: #3b82f6;
+    --accent-blue-hover: #2563eb;
   }
 
-  .light, html:not(.dark) {
-    --bg-primary: #f8fafc;
-    --bg-secondary: #ffffff;
-    --bg-card: #ffffff;
-    --border-subtle: #e2e8f0;
-    --text-primary: #09090b;
-    --text-secondary: #64748b;
-    --accent-blue: #2563eb;
-    --accent-cyan: #0891b2;
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
     overflow-x: hidden;
   }
 
@@ -44,168 +50,30 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.25);
+  background: rgba(148, 163, 184, 0.35);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.5);
+  background: rgba(148, 163, 184, 0.6);
 }
 
-/* Glassmorphism helpers */
-.glass-panel {
-  background: rgba(13, 15, 22, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+/* Elegant Card Hover & Press */
+.clean-card {
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
 }
-
-.light .glass-panel, html:not(.dark) .glass-panel {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid #e2e8f0;
-}
-
-.glow-border-active {
-  box-shadow: 0 0 0 1px #2563eb, 0 0 20px -2px rgba(37, 99, 235, 0.35);
-}
-
-/* Grid blueprint background pattern */
-.bg-grid-pattern {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-}
-
-.light .bg-grid-pattern, html:not(.dark) .bg-grid-pattern {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
-}
-
-/* Anti-Slop Quiet Micro-Animations (Tasteskill 2.5: lift 2px, press 0.98, zoom 1.025) */
-.quiet-lift {
-  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 240ms cubic-bezier(0.16, 1, 0.3, 1), border-color 240ms ease;
-}
-.quiet-lift:hover {
+.clean-card:hover {
   transform: translateY(-2px);
-}
-.quiet-lift:active {
-  transform: translateY(0);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
 }
 
-.quiet-press {
-  transition: transform 140ms cubic-bezier(0.16, 1, 0.3, 1);
+.clean-press {
+  transition: transform 120ms ease;
 }
-.quiet-press:active {
+.clean-press:active {
   transform: scale(0.98);
 }
 
-.quiet-frame {
-  overflow: hidden;
-}
-.quiet-frame img, .quiet-frame .frame-target {
-  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.quiet-frame:hover img, .quiet-frame:hover .frame-target {
-  transform: scale(1.025);
-}
-
-@keyframes subtle-beacon {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.55; transform: scale(1.15); }
-}
-.beacon-pulse {
-  animation: subtle-beacon 2.4s ease-in-out infinite;
-}
-
-@keyframes price-nudge {
-  0% { transform: scale(0.97); opacity: 0.7; }
-  100% { transform: scale(1); opacity: 1; }
-}
-.price-pulse {
-  animation: price-nudge 280ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* ======================================================== */
-/* High-End Cyber Studio Cinematic Animations              */
-/* ======================================================== */
-
-/* 1. Continuous Flowing Text Gradient */
-@keyframes text-flow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.animate-text-flow {
-  background-size: 250% 250%;
-  animation: text-flow 6s ease infinite;
-}
-
-/* 2. Infinite Marquee Ticker (GPU-Accelerated Smooth 60FPS) */
-@keyframes marquee-scroll {
-  0% { transform: translate3d(0%, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
-}
-.animate-marquee {
-  display: flex;
-  width: max-content;
-  will-change: transform;
-  animation: marquee-scroll 26s linear infinite;
-}
-.animate-marquee:hover {
-  animation-play-state: paused;
-}
-
-/* 3. Shimmer Card Sweep */
-.shimmer-card {
-  position: relative;
-  overflow: hidden;
-}
-.shimmer-card::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    60deg,
-    transparent 35%,
-    rgba(255, 255, 255, 0.08) 50%,
-    transparent 65%
-  );
-  transform: rotate(25deg) translateY(-100%);
-  transition: transform 0.8s ease-in-out;
-  pointer-events: none;
-}
-.shimmer-card:hover::after {
-  transform: rotate(25deg) translateY(100%);
-}
-.shimmer-card::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    60deg,
-    transparent 35%,
-    rgba(255, 255, 255, 0.09) 50%,
-    transparent 65%
-  );
-  transform: rotate(25deg) translateY(-100%);
-  transition: transform 0.8s ease-in-out;
-  pointer-events: none;
-}
-.shimmer-card:hover::after {
-  transform: rotate(25deg) translateY(100%);
-}
-
-/* Print Specific Isolation Rules: Completely Hide App Shell & Display Only Official Dossier */
+/* Print Specific Isolation Rules */
 @media print {
   @page {
     size: A4 portrait;
@@ -214,7 +82,7 @@
 
   html, body {
     background: #ffffff !important;
-    color: #09090b !important;
+    color: #000000 !important;
     font-size: 9.5pt !important;
     line-height: 1.35 !important;
     margin: 0 !important;
@@ -222,18 +90,14 @@
     width: 100% !important;
   }
 
-  /* Hide app shell completely */
   .no-print,
   header,
   nav,
   footer,
-  aside,
-  .app-viewport,
-  #app-root-shell {
+  aside {
     display: none !important;
   }
 
-  /* Force print dossier container to take full page with zero overlay */
   .print-modal-overlay,
   .print-modal-wrapper {
     position: static !important;

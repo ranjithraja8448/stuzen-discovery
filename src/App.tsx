@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { AppMode } from './components/layout/Navbar';
-import { SidebarNav } from './components/layout/SidebarNav';
+import { Navbar, AppMode } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
-import { AgencyLandingView } from './components/landing/AgencyLandingView';
+import { CorporateHomeView } from './components/corporate/CorporateHomeView';
 import { DiscoveryEngine } from './components/discovery/DiscoveryEngine';
-import { InternalVaultView } from './components/vault/InternalVaultView';
-import { StaffPinModal } from './components/vault/StaffPinModal';
 import { OfficialPrintDossier } from './components/print/OfficialPrintDossier';
-import { StuzenAICopilot } from './components/ai/StuzenAICopilot';
-import { AboutView } from './components/pages/AboutView';
-import { ServicesView } from './components/pages/ServicesView';
-import { PortfolioView } from './components/pages/PortfolioView';
-import { ContactView } from './components/pages/ContactView';
 import { DiscoveryFormData } from './types/discovery';
 import { DEMO_CLIENT_DATA, INITIAL_VAULT_RECORDS } from './data/demoClients';
 import { analyzeScope } from './utils/scopeAnalyzer';
@@ -150,16 +141,14 @@ const createBlankFormData = (): DiscoveryFormData => ({
 });
 
 export const App: React.FC = () => {
-  const [currentMode, setCurrentMode] = useState<AppMode>('landing');
+  const [currentMode, setCurrentMode] = useState<AppMode>('main');
   const [formData, setFormData] = useState<DiscoveryFormData>(createBlankFormData);
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [printModalRecord, setPrintModalRecord] = useState<DiscoveryFormData | null>(null);
   const [targetDiscoverySection, setTargetDiscoverySection] = useState<string>('s01');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [isStaffUnlocked, setIsStaffUnlocked] = useState<boolean>(false);
-  const [isStaffPinModalOpen, setIsStaffPinModalOpen] = useState<boolean>(false);
 
-  // Initialize vault records from localStorage, or pre-seed with 2 realistic records
+  // Vault records for persistence in localStorage
   const [vaultRecords, setVaultRecords] = useState<DiscoveryFormData[]>(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
@@ -175,7 +164,6 @@ export const App: React.FC = () => {
     return INITIAL_VAULT_RECORDS;
   });
 
-  // Sync vault records to localStorage whenever they change
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(vaultRecords));
@@ -201,7 +189,7 @@ export const App: React.FC = () => {
         if (decoded) {
           setFormData(decoded);
           setCurrentMode('discovery');
-          setToastMessage(`✓ Restored Discovery Session for "${decoded.s01_client.businessName || decoded.id}" from share link!`);
+          setToastMessage(`✓ Restored Discovery Session for "${decoded.s01_client.businessName || decoded.id}"`);
           window.history.replaceState({}, document.title, window.location.pathname);
         }
       }
@@ -223,7 +211,6 @@ export const App: React.FC = () => {
   // Compute live scope metrics
   const scopeAnalysis = analyzeScope(formData);
 
-  // Update meeting metadata
   const handleMeetingChange = (field: keyof DiscoveryFormData['meeting'], value: any) => {
     setFormData(prev => ({
       ...prev,
@@ -236,7 +223,6 @@ export const App: React.FC = () => {
     setIsSaved(false);
   };
 
-  // Update section data
   const handleSectionUpdate = (sectionKey: keyof DiscoveryFormData, field: string, value: any) => {
     setFormData(prev => ({
       ...prev,
@@ -249,28 +235,25 @@ export const App: React.FC = () => {
     setIsSaved(false);
   };
 
-  // Auto-fill demo client
   const handleAutoFillDemo = () => {
     setFormData(prev => ({
       ...prev,
       ...DEMO_CLIENT_DATA,
-      id: prev.id, // keep current ID
+      id: prev.id,
       updatedAt: new Date().toISOString(),
       status: 'In Review',
     }));
     setIsSaved(false);
-    setToastMessage('⚡ Demo Indian Client loaded across all 45 questions!');
+    setToastMessage('✓ Sample project data loaded across all 10 sections');
   };
 
-  // Reset form
   const handleResetForm = () => {
     setFormData(createBlankFormData());
     setIsSaved(false);
     setTargetDiscoverySection('s01');
-    setToastMessage('Form reset to fresh discovery session.');
+    setToastMessage('Form reset to fresh discovery session');
   };
 
-  // Auto-generate Section 10 summary from answers
   const handleAutoGenerateSummary = () => {
     const generated = generateInternalSummaryFromAnswers(formData);
     setFormData(prev => ({
@@ -282,10 +265,9 @@ export const App: React.FC = () => {
       updatedAt: new Date().toISOString(),
     }));
     setIsSaved(false);
-    setToastMessage('✨ Section 10 summary & INR quotation auto-generated from your answers!');
+    setToastMessage('✓ Proposal summary & milestones generated from answers');
   };
 
-  // Save current form data to Vault
   const handleSaveToVault = () => {
     const updatedRecord: DiscoveryFormData = {
       ...formData,
@@ -304,203 +286,100 @@ export const App: React.FC = () => {
     });
 
     setIsSaved(true);
-    setToastMessage(`✓ Record ${updatedRecord.id} (${updatedRecord.s01_client.businessName || 'Dossier'}) saved to Lead Vault!`);
+    setToastMessage(`✓ Saved to local session (${updatedRecord.s01_client.businessName || updatedRecord.id})`);
   };
 
-  // Load a vault record into the discovery editor
-  const handleLoadRecord = (record: DiscoveryFormData) => {
-    setFormData(record);
-    setIsSaved(true);
-    setTargetDiscoverySection('s01');
-    setCurrentMode('discovery');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setToastMessage(`Loaded ${record.s01_client.businessName} into Discovery Portal.`);
+  const handleNavigateSection = (sectionId: string) => {
+    if (currentMode !== 'main') {
+      setCurrentMode('main');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
   };
 
-  // Delete a record from the vault
-  const handleDeleteRecord = (id: string) => {
-    setVaultRecords(prev => prev.filter(r => r.id !== id));
-    setToastMessage('Record deleted from Lead Vault.');
-  };
-
-  const handleStartDiscoveryWithSection = (sectionId: string = 's01') => {
+  const handleOpenDiscovery = (sectionId: string = 's01') => {
     setTargetDiscoverySection(sectionId);
     setCurrentMode('discovery');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Apply scope selections from 5-Second Estimator Calculator directly into Discovery
-  const handleApplyQuickEstimate = (config: {
-    websiteType: string;
-    pageCount: number;
-    selectedFeatures: string[];
-  }) => {
-    setFormData(prev => ({
-      ...prev,
-      s03_structure: {
-        ...prev.s03_structure,
-        websiteType: config.websiteType,
-      },
-      s05_features: {
-        ...prev.s05_features,
-        selectedFeatures: Array.from(new Set([...prev.s05_features.selectedFeatures, ...config.selectedFeatures])),
-      },
-      updatedAt: new Date().toISOString(),
-    }));
-    setCurrentMode('discovery');
-    setTargetDiscoverySection('s03');
+  const handleGoHome = () => {
+    setCurrentMode('main');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setToastMessage('⚡ Scope Calculator estimate applied to your Discovery session!');
-  };
-
-  // Staff Lead Vault PIN security handlers
-  const handleOpenStaffVault = () => {
-    if (isStaffUnlocked) {
-      setCurrentMode('vault');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      setIsStaffPinModalOpen(true);
-    }
-  };
-
-  const handleStaffUnlockSuccess = () => {
-    setIsStaffUnlocked(true);
-    setIsStaffPinModalOpen(false);
-    setCurrentMode('vault');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setToastMessage('🔓 Staff Lead Vault unlocked successfully!');
-  };
-
-  const handleLockVault = () => {
-    setIsStaffUnlocked(false);
-    setCurrentMode('landing');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setToastMessage('🔒 Staff Lead Vault locked & secured.');
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8FAFC] dark:bg-[#09090b] text-slate-900 dark:text-slate-100 transition-colors duration-200">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-[#09090b] text-slate-900 dark:text-slate-100 transition-colors duration-200">
       {/* Toast Notification Container */}
       {toastMessage && (
-        <div className="fixed top-20 right-6 z-50 flex items-center gap-2.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-4 py-3 shadow-2xl border border-slate-700 dark:border-slate-200 animate-fadeIn text-xs font-semibold no-print">
+        <div className="fixed top-20 right-6 z-50 flex items-center gap-2.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-4 py-3 shadow-xl border border-slate-700 dark:border-slate-200 animate-fadeIn text-xs font-semibold no-print">
           <CheckCircle2 size={16} className="text-emerald-400 dark:text-emerald-600 shrink-0" />
           <span>{toastMessage}</span>
           <button
             type="button"
             onClick={() => setToastMessage(null)}
-            className="ml-2 text-slate-400 hover:text-white dark:hover:text-slate-900"
+            className="ml-2 text-slate-400 hover:text-white dark:hover:text-slate-900 cursor-pointer"
           >
             <X size={14} />
           </button>
         </div>
       )}
 
-      {/* Main App Root Shell (Side-Dock Executive Studio Layout) */}
-      <div id="app-root-shell" className="flex-1 flex flex-col lg:flex-row min-h-screen no-print bg-[#F8FAFC] dark:bg-[#05070B] text-slate-900 dark:text-slate-100 transition-colors">
-        {/* Left Sidebar Navigation Dock */}
-        <SidebarNav
-          currentMode={currentMode}
-          onSelectMode={setCurrentMode}
-          vaultCount={vaultRecords.length}
-          discoveryCompletionPercent={scopeAnalysis.overallPercentage}
-          onOpenPrintPreview={() => setPrintModalRecord(formData)}
-          onOpenStaffVault={handleOpenStaffVault}
-        />
+      {/* Clean White Sticky Top Navbar */}
+      <Navbar
+        currentMode={currentMode}
+        onNavigateSection={handleNavigateSection}
+        onOpenDiscovery={() => handleOpenDiscovery('s01')}
+        onGoHome={handleGoHome}
+      />
 
-        {/* Right Scrollable Content Viewport */}
-        <div className="flex-1 min-w-0 flex flex-col h-auto lg:h-screen lg:overflow-y-auto overflow-x-hidden scroll-smooth">
-          <div className="flex-1 app-viewport">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentMode}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full"
-              >
-                {currentMode === 'landing' && (
-                  <AgencyLandingView
-                    onStartDiscovery={handleStartDiscoveryWithSection}
-                    onOpenStaffVault={handleOpenStaffVault}
-                    vaultCount={vaultRecords.length}
-                    onApplyQuickEstimate={handleApplyQuickEstimate}
-                  />
-                )}
+      {/* Main Viewport */}
+      <main className="flex-1 w-full">
+        {currentMode === 'main' && (
+          <CorporateHomeView
+            onOpenDiscovery={() => handleOpenDiscovery('s01')}
+            onNavigateSection={handleNavigateSection}
+          />
+        )}
 
-                {currentMode === 'about' && (
-                  <AboutView
-                    onNavigateMode={setCurrentMode}
-                    onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
-                  />
-                )}
+        {currentMode === 'discovery' && (
+          <DiscoveryEngine
+            formData={formData}
+            onChangeMeeting={handleMeetingChange}
+            onUpdateSection={handleSectionUpdate}
+            onAutoFillDemo={handleAutoFillDemo}
+            onResetForm={handleResetForm}
+            onAutoGenerateSummary={handleAutoGenerateSummary}
+            onSaveToVault={handleSaveToVault}
+            onOpenPrint={() => setPrintModalRecord(formData)}
+            isSaved={isSaved}
+            scopeAnalysis={scopeAnalysis}
+            initialSection={targetDiscoverySection}
+            onNotifyToast={setToastMessage}
+            onBackToHome={handleGoHome}
+          />
+        )}
+      </main>
 
-                {currentMode === 'services' && (
-                  <ServicesView
-                    onNavigateMode={setCurrentMode}
-                    onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
-                  />
-                )}
-
-                {currentMode === 'portfolio' && (
-                  <PortfolioView
-                    onNavigateMode={setCurrentMode}
-                    onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
-                  />
-                )}
-
-                {currentMode === 'contact' && (
-                  <ContactView
-                    onNavigateMode={setCurrentMode}
-                    onStartDiscoveryWithSection={handleStartDiscoveryWithSection}
-                  />
-                )}
-
-                {currentMode === 'discovery' && (
-                  <DiscoveryEngine
-                    formData={formData}
-                    onChangeMeeting={handleMeetingChange}
-                    onUpdateSection={handleSectionUpdate}
-                    onAutoFillDemo={handleAutoFillDemo}
-                    onResetForm={handleResetForm}
-                    onAutoGenerateSummary={handleAutoGenerateSummary}
-                    onSaveToVault={handleSaveToVault}
-                    onOpenPrint={() => setPrintModalRecord(formData)}
-                    isSaved={isSaved}
-                    scopeAnalysis={scopeAnalysis}
-                    initialSection={targetDiscoverySection}
-                    onNotifyToast={setToastMessage}
-                  />
-                )}
-
-                {currentMode === 'vault' && (
-                  <InternalVaultView
-                    vaultRecords={vaultRecords}
-                    onLoadRecord={handleLoadRecord}
-                    onDeleteRecord={handleDeleteRecord}
-                    onOpenPrintPreviewForRecord={record => setPrintModalRecord(record)}
-                    onStartNewDiscovery={() => {
-                      handleResetForm();
-                      setCurrentMode('discovery');
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
-                    onLockVault={handleLockVault}
-                  />
-                )}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Universal Footer */}
-          <Footer onSelectMode={setCurrentMode} />
-        </div>
-      </div>
-
-      {/* Staff Security PIN Modal for Confidential Lead Vault Access */}
-      <StaffPinModal
-        isOpen={isStaffPinModalOpen}
-        onClose={() => setIsStaffPinModalOpen(false)}
-        onUnlockSuccess={handleStaffUnlockSuccess}
+      {/* Universal Footer */}
+      <Footer
+        onNavigateSection={handleNavigateSection}
+        onOpenPrivacy={() => {
+          handleNavigateSection('about');
+        }}
       />
 
       {/* Official Document Print Dossier Modal (When active, prints ONLY this element) */}
@@ -510,14 +389,6 @@ export const App: React.FC = () => {
           onClose={() => setPrintModalRecord(null)}
         />
       )}
-
-      {/* Interactive Stuzen AI Solutions Copilot (Instant Scope, Pricing & Discovery Assistant) */}
-      <StuzenAICopilot
-        onNavigateMode={setCurrentMode}
-        onAutoFillDemo={handleAutoFillDemo}
-        onOpenPrint={() => setPrintModalRecord(formData)}
-        onStartDiscoverySection={handleStartDiscoveryWithSection}
-      />
     </div>
   );
 };

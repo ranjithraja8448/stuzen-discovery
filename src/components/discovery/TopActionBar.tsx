@@ -11,7 +11,6 @@ import {
   Share2,
   Check
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { encodeDiscoverySession } from '../../utils/shareSession';
 
 interface TopActionBarProps {
@@ -39,13 +38,6 @@ export const TopActionBar: React.FC<TopActionBarProps> = ({
 
   const handleAutoFill = () => {
     onAutoFillDemo();
-    // Fire celebratory confetti
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { y: 0.2 },
-      colors: ['#2563EB', '#06B6D4', '#38BDF8', '#10B981'],
-    });
   };
 
   const handleShareLink = () => {

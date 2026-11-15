@@ -3,7 +3,6 @@ import { DiscoveryFormData, MaterialsReceived, InternalProjectSummary, Discovery
 import { SectionHeader } from '../SectionHeader';
 import { PillTag } from '../PillTag';
 import { Sparkles, FileSignature, CheckCircle2, PackageCheck, AlertCircle, RefreshCw, MessageCircle, Send } from 'lucide-react';
-import confetti from 'canvas-confetti';
 
 interface Section10Props {
   data: DiscoveryFormData['s10_final'];
@@ -46,12 +45,6 @@ export const Section10SummarySignoff: React.FC<Section10Props> = ({
 
   const handleGenerateClick = () => {
     onAutoGenerateSummary();
-    confetti({
-      particleCount: 50,
-      spread: 60,
-      origin: { y: 0.6 },
-      colors: ['#2563EB', '#06B6D4', '#10B981'],
-    });
   };
 
   const materialsList: { key: keyof MaterialsReceived; label: string }[] = [
@@ -397,7 +390,7 @@ export const Section10SummarySignoff: React.FC<Section10Props> = ({
               Connect directly with Stuzen Engineering on WhatsApp. Your 45-point scope and quotation requirements will be pre-formatted into the message.
             </p>
             <a
-              href={`https://wa.me/917418572022?text=${encodeURIComponent(
+              href={`https://wa.me/917418672022?text=${encodeURIComponent(
                 `*STUZEN TECHNOLOGIES Discovery Brief*\n*Ref ID:* ${fullFormData.id}\n*Client:* ${fullFormData.s01_client.contactName || 'Valued Client'} (${fullFormData.s01_client.businessName || 'Business'})\n*Phone:* ${fullFormData.s01_client.phoneWhatsapp || 'N/A'}\n*Email:* ${fullFormData.s01_client.email || 'N/A'}\n*Website Type:* ${fullFormData.s03_structure.websiteType}\n*Budget Tier:* ${fullFormData.s09_timeline.budgetTier}\n*North Star Metric:* ${data.mostImportantSuccessFactor || 'Sub-second speeds & high conversion.'}\n\nHi Stuzen Team, we have completed the discovery session on https://stuzen-discovery.vercel.app. Please review our project scope!`
               )}`}
               target="_blank"
@@ -405,7 +398,7 @@ export const Section10SummarySignoff: React.FC<Section10Props> = ({
               className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-xs font-bold text-emerald-800 shadow hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer"
             >
               <MessageCircle size={16} className="text-emerald-600" />
-              <span>Send Brief to WhatsApp: +91 74185 72022</span>
+              <span>Send Brief to WhatsApp: +91 74186 72022</span>
               <Send size={13} className="ml-1 text-emerald-500" />
             </a>
           </div>
