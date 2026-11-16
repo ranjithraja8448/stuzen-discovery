@@ -17,7 +17,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateSection, onOpenPrivacy
 
   return (
     <footer className="border-t border-slate-200 dark:border-white/10 bg-white dark:bg-[#07080a] py-12 transition-colors duration-200 no-print">
-      <div className="mx-auto max-w-[1440px] w-full px-4 sm:px-8 lg:px-12">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 md:px-10 lg:px-14 xl:px-16">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-100 dark:border-white/5">
           <div>
             <div className="flex items-center gap-2.5">

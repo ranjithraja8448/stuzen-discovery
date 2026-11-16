@@ -198,9 +198,9 @@ export const CorporateHomeView: React.FC<CorporateHomeViewProps> = ({
       {/* ======================================================== */}
       <section 
         id="hero" 
-        className="relative pt-12 pb-20 sm:pt-20 sm:pb-28 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(37,99,235,0.08),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(37,99,235,0.18),rgba(9,9,11,0))] border-b border-slate-200/80 dark:border-white/10 overflow-hidden"
+        className="relative pt-12 pb-20 sm:pt-20 sm:pb-28 hero-mesh-bg border-b border-slate-200/80 dark:border-white/10 overflow-hidden"
       >
-        <div className="mx-auto max-w-[1440px] w-full px-4 sm:px-8 lg:px-12 text-center relative z-10">
+        <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 md:px-10 lg:px-14 xl:px-16 text-center relative z-10">
           
           {/* Subtle Top Pill Badge */}
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-200/80 dark:border-blue-500/30 bg-blue-50/80 dark:bg-blue-950/40 px-4 py-1.5 text-xs font-semibold text-blue-700 dark:text-blue-300 mb-6 sm:mb-8 backdrop-blur-sm shadow-xs">
@@ -255,7 +255,7 @@ export const CorporateHomeView: React.FC<CorporateHomeViewProps> = ({
           </div>
 
           {/* Key Telemetry Stat Highlights */}
-          <div className="mt-12 sm:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full max-w-[1400px] mx-auto text-left">
+          <div className="mt-12 sm:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full mx-auto text-left">
             <div className="p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#111318]/90 backdrop-blur-sm shadow-xs hover:border-blue-400/50 hover:shadow-md transition-all">
               <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
                 <Activity size={16} />
@@ -312,7 +312,7 @@ export const CorporateHomeView: React.FC<CorporateHomeViewProps> = ({
           {/* ======================================================== */}
           {/* HERO PRODUCT ARCHITECTURE SHOWCASE (Interactive Window)   */}
           {/* ======================================================== */}
-          <div className="mt-14 sm:mt-16 text-left w-full max-w-[1400px] mx-auto">
+          <div className="mt-14 sm:mt-16 text-left w-full mx-auto">
             <div className="rounded-3xl border border-slate-300/80 dark:border-white/15 bg-white dark:bg-[#101218] shadow-2xl overflow-hidden">
               
               {/* Window Header */}
@@ -585,7 +585,7 @@ export const CorporateHomeView: React.FC<CorporateHomeViewProps> = ({
       {/* ======================================================== */}
       {/* 02. ABOUT US & OUR APPROACH                              */}
       {/* ======================================================== */}
-      <section id="about" className="py-20 sm:py-28 max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+      <section id="about" className="py-20 sm:py-28 max-w-[1720px] w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-14 xl:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           <div className="lg:col-span-6 space-y-6">
@@ -660,7 +660,7 @@ export const CorporateHomeView: React.FC<CorporateHomeViewProps> = ({
       {/* 03. OUR SERVICES (Clean Elevated 6-Card Bento Grid)      */}
       {/* ======================================================== */}
       <section id="services" className="py-20 sm:py-28 bg-slate-50/80 dark:bg-[#0c0e14] border-y border-slate-200/80 dark:border-white/10">
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1720px] w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-14 xl:px-16">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 dark:border-blue-500/30 bg-blue-50/80 dark:bg-blue-950/40 px-3.5 py-1 text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider mb-3">
@@ -740,7 +740,7 @@ export const CorporateHomeView: React.FC<CorporateHomeViewProps> = ({
       {/* ======================================================== */}
       {/* 04. WHATSAPP AUTOMATION SPOTLIGHT SECTION                */}
       {/* ======================================================== */}
-      <section id="whatsapp" className="py-20 sm:py-28 max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+      <section id="whatsapp" className="py-20 sm:py-28 max-w-[1720px] w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-14 xl:px-16">
         <div className="rounded-3xl border border-emerald-200 dark:border-emerald-800/50 bg-gradient-to-br from-emerald-50/60 via-white to-slate-50/80 dark:from-emerald-950/20 dark:via-[#111318] dark:to-[#0c0e14] p-8 sm:p-12 lg:p-14 shadow-md">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
@@ -852,7 +852,7 @@ export const CorporateHomeView: React.FC<CorporateHomeViewProps> = ({
       {/* 05. WHY CHOOSE STUZEN (5 Clean Pillars)                  */}
       {/* ======================================================== */}
       <section id="why-choose-us" className="py-20 sm:py-28 bg-slate-50/80 dark:bg-[#0c0e14] border-y border-slate-200/80 dark:border-white/10">
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+        <div className="max-w-[1720px] w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-14 xl:px-16">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 dark:border-blue-500/30 bg-blue-50/80 dark:bg-blue-950/40 px-3.5 py-1 text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider mb-3">
@@ -901,7 +901,7 @@ export const CorporateHomeView: React.FC<CorporateHomeViewProps> = ({
       {/* ======================================================== */}
       {/* 06. OUR PROCESS (Clean 5-Step Connected Timeline)        */}
       {/* ======================================================== */}
-      <section id="process" className="py-20 sm:py-28 max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+      <section id="process" className="py-20 sm:py-28 max-w-[1720px] w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-14 xl:px-16">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 dark:border-blue-500/30 bg-blue-50/80 dark:bg-blue-950/40 px-3.5 py-1 text-xs font-bold text-blue-700 dark:text-blue-300 uppercase tracking-wider mb-3">
             <span>Our Process</span>
@@ -950,7 +950,7 @@ export const CorporateHomeView: React.FC<CorporateHomeViewProps> = ({
       {/* ======================================================== */}
       {/* 07. CALL TO ACTION BANNER                                */}
       {/* ======================================================== */}
-      <section className="py-12 sm:py-16 max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+      <section className="py-12 sm:py-16 max-w-[1720px] w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-14 xl:px-16">
         <div className="rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white p-8 sm:p-14 text-center shadow-xl relative overflow-hidden">
           <div className="relative z-10 max-w-3xl mx-auto space-y-4">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
@@ -985,7 +985,7 @@ export const CorporateHomeView: React.FC<CorporateHomeViewProps> = ({
       {/* ======================================================== */}
       {/* 08. CONTACT SECTION                                      */}
       {/* ======================================================== */}
-      <section id="contact" className="py-20 sm:py-28 max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12">
+      <section id="contact" className="py-20 sm:py-28 max-w-[1720px] w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-14 xl:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Left Column: Stuzen Contact Cards */}

@@ -57,6 +57,25 @@
   background: rgba(148, 163, 184, 0.6);
 }
 
+/* Edge-to-Edge Hero Architecture Grid Mesh (Zero Lag, 100% Full Bleed) */
+.hero-mesh-bg {
+  background-color: #ffffff;
+  background-image: 
+    radial-gradient(ellipse at 50% -10%, rgba(37, 99, 235, 0.12) 0%, rgba(37, 99, 235, 0.02) 65%, transparent 85%),
+    linear-gradient(to right, rgba(226, 232, 240, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 232, 240, 0.45) 1px, transparent 1px);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+}
+
+.dark .hero-mesh-bg {
+  background-color: #09090b;
+  background-image: 
+    radial-gradient(ellipse at 50% -10%, rgba(37, 99, 235, 0.22) 0%, rgba(37, 99, 235, 0.05) 65%, transparent 85%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+}
+
 /* Elegant Card Hover & Press */
 .clean-card {
   transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
