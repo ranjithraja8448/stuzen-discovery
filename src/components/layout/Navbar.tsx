@@ -60,14 +60,27 @@ export const Navbar: React.FC<NavbarProps> = ({
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }
           }}
-          className="flex items-center gap-2 cursor-pointer select-none py-1 group"
+          className="flex items-center gap-2.5 cursor-pointer select-none py-1 group text-left"
           title="Stuzen Technologies"
         >
           <img
-            src="/brand/STUZEN_Logo_Transparent.png"
+            src="/brand/STUZEN_Icon_Only.png"
             alt="Stuzen Technologies"
-            className="h-8 sm:h-9 w-auto object-contain transition-opacity group-hover:opacity-90"
+            className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105"
           />
+          <div className="flex flex-col">
+            <div className="flex items-center gap-1.5">
+              <span className="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white leading-none">
+                STUZEN
+              </span>
+              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider uppercase bg-blue-50 text-blue-600 dark:bg-blue-950/60 dark:text-blue-400 border border-blue-200/70 dark:border-blue-800/50">
+                STUDIO
+              </span>
+            </div>
+            <span className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold tracking-widest uppercase mt-0.5 leading-none">
+              TECHNOLOGIES
+            </span>
+          </div>
         </button>
 
         {/* Desktop Navigation Links */}
