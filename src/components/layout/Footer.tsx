@@ -17,15 +17,23 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateSection, onOpenPrivacy
 
   return (
     <footer className="border-t border-slate-200 dark:border-white/10 bg-white dark:bg-[#07080a] py-12 transition-colors duration-200 no-print">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1440px] w-full px-4 sm:px-8 lg:px-12">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-8 border-b border-slate-100 dark:border-white/5">
           <div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <img
-                src="/brand/STUZEN_Logo_Transparent.png"
+                src="/brand/STUZEN_Icon_Only.png"
                 alt="Stuzen Technologies"
-                className="h-8 object-contain"
+                className="h-8 w-auto object-contain"
               />
+              <div className="flex flex-col">
+                <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-white leading-none">
+                  STUZEN
+                </span>
+                <span className="text-[9px] text-slate-400 dark:text-slate-500 font-semibold tracking-widest uppercase mt-0.5">
+                  TECHNOLOGIES
+                </span>
+              </div>
             </div>
             <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
               Smart digital solutions for modern businesses.
